@@ -1,0 +1,91 @@
+---
+import Heading from '../components/Heading.astro';
+const categories = ["all", "JavaScript", "Wordpress", "React", "NextJs", "Vue"];
+---
+<div class="py-10 container mx-auto">
+  <Heading title="My Projects" subTitle="What I build" />
+
+  <!-- Tabs -->
+  <div class="flex flex-wrap justify-center mb-8 space-x-2">
+    {categories.map(category => (
+      <button
+        class="tab-btn btn btn-sm btn-outline"
+        data-category={category.toLowerCase()}
+      >
+        {category === 'all' ? 'All works' : category}
+      </button>
+    ))}
+  </div>
+
+  <!-- Loading Spinner -->
+  <div id="spinner" class="flex justify-center items-center min-h-[50vh]">
+    <span class="loading loading-spinner text-primary"></span>
+  </div>
+
+  <!-- Projects Grid -->
+  <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- سيتم ملؤه بواسطة JS -->
+  </div>
+</div>
+
+<script type="module" is:inline >
+  const spinner = document.getElementById('spinner');
+  const grid = document.getElementById('projects-grid');
+
+  async function loadProjects() {
+    try {
+      const res = await fetch('https://raw.githubusercontent.com/Amine-Triki/projects-data/main/projects.json');
+      const projects = await res.json();
+
+      spinner.style.display = 'none';
+
+      function renderProjects(filter = 'all') {
+        grid.innerHTML = '';
+        projects
+          .filter(p => filter === 'all' || p.category.toLowerCase() === filter)
+          .forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'card bg-base-100 shadow-lg';
+            card.innerHTML = `
+              <figure>
+                <img src="${p.imageSrc}" alt="${p.title}" class="h-40 w-full object-cover"/>
+              </figure>
+              <div class="card-body">
+                <h2 class="card-title text-primary">${p.title}</h2>
+                <p>${p.description}</p>
+                <div class="card-actions justify-around mt-2">
+                  ${p.github ? `<a href="${p.github}" target="_blank" class="btn btn-sm btn-pink text-black">Github</a>` : ''}
+                  ${p.link ? `<a href="${p.link}" target="_blank" class="btn btn-sm btn-info text-black">Preview</a>` : ''}
+                </div>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
+      }
+
+      // عرض جميع المشاريع عند البداية
+      renderProjects();
+
+      // إضافة event listeners للـ Tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const category = e.target.dataset.category;
+          renderProjects(category);
+
+          // تحديث الزر النشط
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('btn-primary'));
+          e.target.classList.add('btn-primary');
+        });
+      });
+
+      // تفعيل الزر الأول افتراضيًا
+      document.querySelector('.tab-btn').classList.add('btn-primary');
+
+    } catch (error) {
+      spinner.innerHTML = `<p class="text-red-500">Failed to load projects</p>`;
+      console.error(error);
+    }
+  }
+
+  loadProjects();
+</script>

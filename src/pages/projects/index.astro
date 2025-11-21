@@ -1,10 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ProjectsIsland from '../../components/ProjectsIsland.astro';
 ---
 
 
 
 
 <Layout>
-	<p>This is the projects page </p>
+	<div class="container mx-auto py-10">
+  <ProjectsIsland client:load />
+</div>
 </Layout>

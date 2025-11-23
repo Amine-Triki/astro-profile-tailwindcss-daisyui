@@ -1,6 +1,10 @@
 ---
+import Icon from "../components/Icons.astro";
 ---
-<div class="container mx-auto my-5 flex flex-wrap flex-row items-center justify-center">
+
+<div
+  class="container mx-auto my-5 flex flex-wrap flex-row items-center justify-center"
+>
   <div class="p-4">
     <p>Hello ; I am</p>
     <h2 class="text-2xl font-bold">Amine Triki</h2>
@@ -9,18 +13,26 @@
 
     <!-- ✨ النص الذي فيه التأثير -->
     <p class="text-xl font-semibold mt-2 flex items-center gap-2">
-      And I’m a 
-      <span 
-        id="typed" 
+      And I’m a
+      <span
+        id="typed"
         class="text-blue-600 cursor opacity-0 translate-y-2 transition-all duration-300"
       ></span>
     </p>
 
     <p class="max-w-96 mt-3">
       based in tunisia; I create elegant and responsive sites, easy to use and
-      built with best practices. I use HTML ,CSS, JavaScript (React); 
-      I am a WordPress designer.
+      built with best practices. I use HTML ,CSS, JavaScript (React); I am a
+      WordPress designer.
     </p>
+    <a
+      href="#"
+      class="inline-block px-6 py-3 my-8 font-semibold text-white bg-purple-500 rounded-lg shadow-md hover:bg-purple-600 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out"
+    >
+      Download Resume
+    </a>
+
+    <Icon />
   </div>
 
   <div class="w-1/2 md:w-1/3 p-4">
@@ -29,10 +41,9 @@
 </div>
 
 <!-- سكربت يعمل في المتصفح فقط -->
-<script >
-
-  const words = ['youtuber', 'blogger', 'freelancer', 'developer'];
-  const el = document.getElementById('typed');
+<script>
+  const words = ["youtuber", "blogger", "freelancer", "developer"];
+  const el = document.getElementById("typed");
   let wordIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
@@ -79,13 +90,18 @@
 
 <style>
   .cursor::after {
-    content: '|';
+    content: "|";
     animation: blink 1s step-start infinite;
     margin-left: 2px;
   }
 
   @keyframes blink {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
   }
 </style>

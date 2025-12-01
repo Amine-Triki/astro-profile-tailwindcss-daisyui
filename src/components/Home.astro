@@ -50,15 +50,16 @@ import aminImage from "../assets/amine-triki.webp";
 
     <!-- الصورة -->
     <div class="flex-1 min-w-80 p-4 flex justify-center">
-      <Image
-        src={aminImage}
-        alt="Amine Triki - Junior Frontend Developer from Tunisia"
-        width={570}
-        height={662}
-        loading="lazy"
-        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 400px"
-        class="w-full max-w-sm rounded-lg shadow-lg"
-      />
+<Image
+  src={aminImage}
+  alt="Amine Triki - Junior Frontend Developer from Tunisia"
+  width={570}
+  height={662}
+  priority
+  fetchpriority="high"
+  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 400px"
+  class="w-full max-w-sm rounded-lg shadow-lg"
+/>
     </div>
   </div>
 </main>

@@ -1,5 +1,7 @@
 ---
 import Icon from "../components/Icons.astro";
+import { Image } from "astro:assets";
+import aminImage from "../assets/amine-triki.webp";
 ---
 
 <main class="min-h-screen flex items-center">
@@ -23,7 +25,9 @@ import Icon from "../components/Icons.astro";
       </p>
 
       <p class="max-w-96 mt-3 text-gray-700 leading-relaxed">
-        Based in Tunisia; I create elegant and responsive websites that are easy to use and built with best practices. I specialize in HTML, CSS, JavaScript, and React. I also have experience with WordPress design.
+        Based in Tunisia; I create elegant and responsive websites that are easy
+        to use and built with best practices. I specialize in HTML, CSS,
+        JavaScript, and React. I also have experience with WordPress design.
       </p>
 
       <!-- زر التحميل -->
@@ -46,11 +50,13 @@ import Icon from "../components/Icons.astro";
 
     <!-- الصورة -->
     <div class="flex-1 min-w-80 p-4 flex justify-center">
-      <img
-        src="/amine triki.webp"
+      <Image
+        src={aminImage}
         alt="Amine Triki - Junior Frontend Developer from Tunisia"
-        class="w-full max-w-sm rounded-lg shadow-lg object-cover"
+        width={400}
+        height={500}
         loading="lazy"
+        format="webp"
       />
     </div>
   </div>

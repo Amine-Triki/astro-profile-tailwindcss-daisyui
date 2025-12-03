@@ -1,12 +1,9 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-
 import tailwindcss from "@tailwindcss/vite";
-
 import sitemap from "@astrojs/sitemap";
 import AstroPWA from "@vite-pwa/astro";
 
-// https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
@@ -16,6 +13,7 @@ export default defineConfig({
     sitemap(),
     AstroPWA({
       registerType: "autoUpdate",
+      includeAssets: ['favicon.svg', 'icon-192x192.png', 'icon-512x512.png'],
       manifest: {
         name: "Amine Triki Portfolio",
         short_name: "Amine Triki",
@@ -24,6 +22,7 @@ export default defineConfig({
         background_color: "#ffffff",
         display: "standalone",
         start_url: "/",
+        scope: "/",
         icons: [
           {
             src: "/icon-192x192.png",
@@ -43,27 +42,10 @@ export default defineConfig({
           },
         ],
       },
-
-      // ← هنا workbox
       workbox: {
         navigateFallback: "/",
-        navigateFallbackDenylist: [/^\/api/],
-        globPatterns: ["**/*.{css,js,html,svg,png,ico,txt}"],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "google-fonts-cache",
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365,
-              },
-            },
-          },
-        ],
+        globPatterns: ["**/*.{css,js,html,svg,png,ico,txt,woff,woff2}"],
       },
-
       devOptions: {
         enabled: true,
       },

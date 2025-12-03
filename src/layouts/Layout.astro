@@ -9,13 +9,16 @@ import Footer from "../components/Footer.astro";
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="google-site-verification" content="K41DkDGQJGSuR3mMSiQnjspWU1n6Fp5EXdHHbzvZ1oI" />
+    <meta
+      name="google-site-verification"
+      content="K41DkDGQJGSuR3mMSiQnjspWU1n6Fp5EXdHHbzvZ1oI"
+    />
     <meta name="viewport" content="width=device-width" />
-        <!-- PWA Meta Tags -->
+    <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#ffffff" />
     <link rel="apple-touch-icon" href="/icon-192x192.png" />
     <link rel="manifest" href="/manifest.json" />
-    
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta
@@ -30,6 +33,17 @@ import Footer from "../components/Footer.astro";
       <slot />
     </div>
     <Footer />
+    <!-- Register Service Worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((reg) => console.log("✅ SW registered"))
+            .catch((err) => console.log("❌ SW failed:", err));
+        });
+      }
+    </script>
   </body>
 </html>
 

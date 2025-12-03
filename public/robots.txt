@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yourwebsite.com/sitemap-index.xml
+Sitemap: https://astro-profile-daisyui.netlify.app/sitemap-index.xml

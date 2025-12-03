@@ -16,6 +16,8 @@
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
-    "daisyui": "^5.5.5"
+    "@vite-pwa/astro": "^1.2.0",
+    "daisyui": "^5.5.5",
+    "vite-plugin-pwa": "^1.2.0"
   }
 }

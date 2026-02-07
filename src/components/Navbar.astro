@@ -41,11 +41,13 @@ const currentPath = Astro.url.pathname;
         <li>
           <a
             href="/projects"
-            class={currentPath === "/projects" ? "active" : ""}>Projects</a>
+            class={currentPath === "/projects" ? "active" : ""}>Projects</a
+          >
         </li>
         <li>
           <a href="/contact" class={currentPath === "/contact" ? "active" : ""}
-            >Contact</a>
+            >Contact</a
+          >
         </li>
       </ul>
     </div>
@@ -57,7 +59,7 @@ const currentPath = Astro.url.pathname;
       aria-label="Amine Triki - Home"
     >
       <img src="/favicon.svg" alt="Logo" class="w-8 h-8" />
-      <span >Amine Triki</span>
+      <span>Amine Triki</span>
     </a>
   </div>
 
@@ -95,7 +97,14 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <!-- زر تبديل الثيم -->
+
   <div class="navbar-end gap-2">
+    <a
+      href="https://www.freelancer.com/u/Mramis?sb=t&frm=Mramis"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-soft btn-info">Hire me</a
+    >
     <label class="swap swap-rotate btn btn-ghost btn-circle" for="theme-toggle">
       <input
         id="theme-toggle"
@@ -137,7 +146,7 @@ const currentPath = Astro.url.pathname;
    */
 
   const toggle = document.querySelector(
-    ".theme-controller"
+    ".theme-controller",
   ) as HTMLInputElement | null;
 
   if (toggle) {

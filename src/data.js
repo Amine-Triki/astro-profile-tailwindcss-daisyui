@@ -2,9 +2,9 @@
 function createSlug(title) {
   return title
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '') // حذف الرموز الخاصة
-    .replace(/\s+/g, '-')      // تحويل المسافات إلى -
-    .replace(/--+/g, '-')      // حذف -- المتكررة
+    .replace(/[^\w\s-]/g, "") // حذف الرموز الخاصة
+    .replace(/\s+/g, "-") // تحويل المسافات إلى -
+    .replace(/--+/g, "-") // حذف -- المتكررة
     .trim();
 }
 
@@ -12,60 +12,54 @@ const data = [
   {
     title: "Converting Your React Vite App into PWA",
     img: "Converting Your React Vite App into PWA.webp",
-    videoUrl: "https://www.youtube.com/watch?v=1wDiSTC2MTA",
-    description: "Learn how to convert your React Vite app into a Progressive Web App (PWA) step by step.",
-    content: `
-      <p>في هذا الدرس سنتعلم كيفية تحويل تطبيق React Vite إلى PWA...</p>
-      <h3>الخطوات الأساسية:</h3>
-      <ol>
-        <li>تثبيت vite-plugin-pwa</li>
-        <li>إعداد ملف manifest.json</li>
-        <li>إنشاء Service Worker</li>
-      </ol>
-    `
+    videoUrl: "https://www.youtube.com/watch?v=HExHPdX4Rb0",
+    description:
+      "Learn how to convert your React Vite app into a Progressive Web App (PWA) step by step.",
   },
   {
     title: "orange fixbox change password & Wi-Fi name",
     img: "orange fixbox change password & Wi-Fi name.webp",
-    videoUrl: "https://www.youtube.com/watch?v=sbYks0w3WyY",
-    description: "شرح كيفية تغيير كلمة السر واسم الواي فاي لراوتر Orange Fixbox.",
-    content: `
-      <p>في هذا الفيديو سنشرح خطوات تغيير إعدادات راوتر Orange...</p>
-    `
+    videoUrl: "https://www.youtube.com/watch?v=Vh_S2Cwps7U",
+    description:
+      "Explication de la procédure pour modifier le mot de passe et le nom du réseau Wi-Fi d'un routeur Orange Fixbox.",
   },
   {
     title: "create ovhcloud professional email",
     img: "create ovhcloud professional email.webp",
-    videoUrl: "https://www.youtube.com/watch?v=-t78_OWHN-Y",
-    description: "كيفية إنشاء بريد إلكتروني احترافي على OVHcloud.",
-    content: `
-      <p>سنتعلم كيفية إنشاء بريد احترافي خاص بنطاقك...</p>
-    `
+    videoUrl: "https://www.youtube.com/watch?v=GY11bxP0coA",
+    description: "How to create a professional email address on OVHcloud.",
   },
   {
     title: "connection lost. Saving has been disabled until you're reconnected",
-    img: "connection lost. Saving has been disabled until you're reconnected.webp",
-    videoUrl: "https://www.youtube.com/watch?v=1wDiSTC2MTA",
-    description: "حل مشكلة فقدان الاتصال في WordPress.",
+    img: "connection.webp",
+    videoUrl: "https://www.youtube.com/watch?v=ukiiC6y-D8Q",
+    description: "Solving the connection loss problem in WordPress.",
     content: `
-      <p>هذه المشكلة شائعة في WordPress عندما يتم قطع الاتصال...</p>
-    `
+      <p>The solution </p>
+      <ul>
+      <li>1) THe plugin/theme you installed : try to disable them one to one and see if the error remains
+</li>
+<li>2) Make PHP version : 8 or more  & PHP memory limit : 256M or more
+</li>
+<li>3) install plugin “Health Check & Troubleshooting added”
+</li>
+<li>else; issue from your hosting provider : you can still go to their forum and see if it’s their fault that you have this issue</li>
+      </ul>
+    `,
   },
   {
     title: "Les fonction logiques : Algèbre de Boole",
-    img: "Les fonction logiques .webp",
-    videoUrl: "https://www.youtube.com/watch?v=1wDiSTC2MTA",
-    description: "شرح الدوال المنطقية وجبر بول.",
-    content: `
-      <p>سنتعلم أساسيات الدوال المنطقية وجبر بول...</p>
-    `
+    img: "Les-fonction-logiques.webp",
+    videoUrl: "https://www.youtube.com/watch?v=ar2vuZ-TrCk",
+    description:
+      "Les fonction logiques Algèbre de Boole  équation , symbole , tableau de vérité ",
   },
 ];
 
 // إضافة slug لكل عنصر
-const dataWithSlugs = data.map(item => ({
+const dataWithSlugs = data.map((item) => ({
   ...item,
-  slug: createSlug(item.title)
+  slug: createSlug(item.title),
 }));
 
 export default dataWithSlugs;

@@ -1,0 +1,107 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import data from "../../data";
+
+// الحصول على الـ slug من الـ URL
+const { slug } = Astro.params;
+
+// البحث عن المقالة
+const post = data.find((item) => item.slug === slug);
+
+// إذا لم توجد المقالة، ارجع 404
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+// دالة لاستخراج Video ID من YouTube URL
+function getYouTubeID(url) {
+  const match = url.match(/[?&]v=([^&]+)/);
+  return match ? match[1] : null;
+}
+
+const videoId = getYouTubeID(post.videoUrl);
+
+// إنشاء كل الصفحات الممكنة (Static Site Generation)
+export async function getStaticPaths() {
+  return data.map((item) => ({
+    params: { slug: item.slug },
+  }));
+}
+---
+
+<Layout>
+  <article class="container mx-auto px-4 py-16 max-w-4xl">
+    <!-- العنوان -->
+    <header class="mb-8">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">{post.title}</h2>
+      {
+        post.description && (
+          <p class="text-xl text-base-content/70">{post.description}</p>
+        )
+      }
+    </header>
+
+
+    <!-- الفيديو -->
+    {
+      videoId && (
+        <div class="aspect-video mb-8">
+          <iframe
+            class="w-full h-full rounded-lg"
+            src={`https://www.youtube.com/embed/${videoId}`}
+            title={post.title}
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
+      )
+    }
+
+    <!-- المحتوى -->
+    <div class="prose prose-lg max-w-none" set:html={post.content} />
+
+    <!-- زر العودة -->
+    <div class="mt-12">
+      <a href="/blog" class="btn btn-outline"> ← Back to Blog </a>
+    </div>
+  </article>
+</Layout>
+
+<style is:global>
+  /* تنسيق المحتوى */
+  article .prose {
+    color: inherit;
+  }
+
+  article .prose h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  article .prose p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  article .prose ol,
+  article .prose ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  article .prose li {
+    margin-bottom: 0.5rem;
+  }
+
+  article .prose a {
+    color: hsl(var(--p));
+    text-decoration: underline;
+  }
+
+  article .prose a:hover {
+    opacity: 0.8;
+  }
+</style>

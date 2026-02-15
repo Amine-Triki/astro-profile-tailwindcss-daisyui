@@ -2,33 +2,37 @@
 import data from "../data";
 ---
 
-<div class="container grid grid-cols-[repeat(auto-fill,minmax(24rem,1fr))] gap-8">
-  {data.map((item) => (
-    <div class="card bg-base-100 shadow-sm h-full">
-      <figure>
-        <div class="hover-3d">
-          <figure class="w-60 rounded-2xl">
-            <img src={item.img} alt={item.title} width="640" height="360" />
-          </figure>
+<div class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {
+    data.map((item) => (
+      <div class="card bg-base-100 shadow-sm h-full">
+        <figure>
+          <div class="hover-3d">
+            <figure class="w-60 rounded-2xl">
+              <img src={item.img} alt={item.title} width="640" height="360" />
+            </figure>
 
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </figure>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </figure>
 
-      <div class="card-body flex flex-col">
-        <h2 class="card-title">{item.title}</h2>
+        <div class="card-body flex flex-col">
+          <h2 class="card-title">{item.title}</h2>
 
-        <div class="card-actions justify-end mt-auto">
-          <a href={`/blog/${item.slug}`} class="btn btn-primary">read more</a>
+          <div class="card-actions justify-end mt-auto">
+            <a href={`/blog/${item.slug}`} class="btn btn-primary">
+              read more
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  ))}
+    ))
+  }
 </div>

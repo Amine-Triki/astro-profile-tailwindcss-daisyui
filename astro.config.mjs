@@ -11,6 +11,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://astro-profile-daisyui.netlify.app',
+  site: 'https://astro-profile-tailwindcss-daisyui.pages.dev/',
   integrations: [sitemap()],
 });

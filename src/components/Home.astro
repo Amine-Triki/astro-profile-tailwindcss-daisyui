@@ -33,18 +33,29 @@ const cvData = await res.json();
         JavaScript, and React. I also have experience with WordPress design.
       </p>
 
-      <!-- زر التحميل -->
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href={cvData.cv.en}
-        class="inline-block px-8 py-3 my-8 font-semibold text-white bg-purple-700 rounded-lg shadow-md hover:bg-purple-800 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2"
-        aria-label="Download my resume in PDF format"
-        title="Download Resume"
-      >
-        📥 Download Resume
-      </a>
-
+      <!-- أزرار السيرة الذاتية -->
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={cvData.cv.en.download}
+          class="inline-flex items-center justify-center px-8 py-3 font-semibold text-white bg-purple-700 rounded-lg shadow-md hover:bg-purple-800 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2"
+          aria-label="Download my resume in PDF format"
+          title="Download Resume"
+        >
+          📥 Download Resume
+        </a>
+        <a
+          href={cvData.cv.en.preview}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-8 py-3 font-semibold text-purple-700 bg-purple-100 border border-purple-200 rounded-lg shadow-sm hover:bg-purple-200 hover:border-purple-300 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400"
+          aria-label="Preview my resume online"
+          title="Preview Resume"
+        >
+          👁️ Preview
+        </a>
+      </div>
       <!-- Social Icons -->
       <div class="mt-8">
         <Icon />

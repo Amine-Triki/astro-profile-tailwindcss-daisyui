@@ -2,6 +2,9 @@
 import Icon from "../components/Icons.astro";
 import { Image } from "astro:assets";
 import aminImage from "../assets/amine-triki.webp";
+
+const res = await fetch("https://raw.githubusercontent.com/Amine-Triki/projects-data/main/cv.json");
+const cvData = await res.json();
 ---
 
 <main class="min-h-screen flex items-center">
@@ -34,7 +37,7 @@ import aminImage from "../assets/amine-triki.webp";
       <a
         target="_blank"
         rel="noopener noreferrer"
-        href="https://mega.nz/file/WIciFbZK#giPo5Q3uIrClf12Truz60TxZoW6vnC6sTZyXNA9QbKk"
+        href={cvData.cv.en}
         class="inline-block px-8 py-3 my-8 font-semibold text-white bg-purple-700 rounded-lg shadow-md hover:bg-purple-800 hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2"
         aria-label="Download my resume in PDF format"
         title="Download Resume"

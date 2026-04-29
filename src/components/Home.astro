@@ -3,7 +3,9 @@ import Icon from "../components/Icons.astro";
 import { Image } from "astro:assets";
 import aminImage from "../assets/amine-triki.webp";
 
-const res = await fetch("https://raw.githubusercontent.com/Amine-Triki/projects-data/main/cv.json");
+const res = await fetch(
+  "https://raw.githubusercontent.com/Amine-Triki/projects-data/main/cv.json",
+);
 const cvData = await res.json();
 ---
 
@@ -28,9 +30,13 @@ const cvData = await res.json();
       </p>
 
       <p class="max-w-96 mt-3 text-gray-700 leading-relaxed">
-        Based in Tunisia; I create elegant and responsive websites that are easy
-        to use and built with best practices. I specialize in HTML, CSS,
-        JavaScript, and React. I also have experience with WordPress design.
+        Based in Tunisia, I’m a Full-Stack Developer and creative content
+        creator. I turn ideas into websites that are fast, modern, and very easy
+        to use — helping businesses grow online. Whether you need a custom web
+        application or a WordPress site, I focus on clean design and ensure
+        everything works perfectly on phones, tablets, and computers (Responsive
+        Design). Beyond coding, I share my development journey and insights on
+        YouTube to help others learn.
       </p>
 
       <!-- أزرار السيرة الذاتية -->
@@ -64,16 +70,16 @@ const cvData = await res.json();
 
     <!-- الصورة -->
     <div class="flex-1 min-w-80 p-4 flex justify-center lg:justify-end">
-<Image
-  src={aminImage}
-  alt="Amine Triki - Junior Frontend Developer from Tunisia"
-  width={570}
-  height={662}
-  priority
-  fetchpriority="high"
-  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 400px"
-  class="w-full max-w-sm rounded-lg shadow-lg"
-/>
+      <Image
+        src={aminImage}
+        alt="Amine Triki - Junior Frontend Developer from Tunisia"
+        width={570}
+        height={662}
+        priority
+        fetchpriority="high"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 400px"
+        class="w-full max-w-sm rounded-lg shadow-lg"
+      />
     </div>
   </div>
 </main>

@@ -9,7 +9,10 @@ import Footer from "../components/Footer.astro";
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-<meta name="google-site-verification" content="6Uv5yhzQFcfkKSPsifCwqEgyqPTqD_ebAozgsZ7ELig" />
+    <meta
+      name="google-site-verification"
+      content="6Uv5yhzQFcfkKSPsifCwqEgyqPTqD_ebAozgsZ7ELig"
+    />
     <meta name="viewport" content="width=device-width" />
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#ffffff" />
@@ -20,7 +23,7 @@ import Footer from "../components/Footer.astro";
     <meta name="generator" content={Astro.generator} />
     <meta
       name="description"
-      content="I am a junior front end developer based in tunisia; I create elegant and responsive sites, easy to use and built with best practices; I use HTML ,CSS, SASS, Tailwind CSS, Bootstrap, JavaScript & React js; I am a WordPress designer"
+      content=" I’m a Full Stack Developer and creative content creator. I turn ideas into websites that are fast, modern, and very easy to use — helping businesses grow online. Whether you need a custom web application or a WordPress site, I focus on clean design and ensure everything works perfectly on phones, tablets, and computers (Responsive Design). Beyond coding"
     />
     <title>Amine Triki</title>
   </head>
@@ -31,33 +34,33 @@ import Footer from "../components/Footer.astro";
     </div>
     <Footer />
     <!-- Register Service Worker -->
-<!-- Register Service Worker -->
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      // حذف Service Workers القديمة
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        registrations.forEach(reg => reg.unregister());
-      });
+    <!-- Register Service Worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          // حذف Service Workers القديمة
+          navigator.serviceWorker.getRegistrations().then((registrations) => {
+            registrations.forEach((reg) => reg.unregister());
+          });
 
-      // مسح الـ cache القديم
-      caches.keys().then(names => {
-        names.forEach(name => caches.delete(name));
-      });
+          // مسح الـ cache القديم
+          caches.keys().then((names) => {
+            names.forEach((name) => caches.delete(name));
+          });
 
-      // تسجيل Service Worker الجديد
-      setTimeout(() => {
-        navigator.serviceWorker
-          .register("/sw.js")
-          .then((reg) => {
-            console.log("✅ SW registered");
-            reg.update(); // تحديث فوري
-          })
-          .catch((err) => console.log("❌ SW failed:", err));
-      }, 100);
-    });
-  }
-</script>
+          // تسجيل Service Worker الجديد
+          setTimeout(() => {
+            navigator.serviceWorker
+              .register("/sw.js")
+              .then((reg) => {
+                console.log("✅ SW registered");
+                reg.update(); // تحديث فوري
+              })
+              .catch((err) => console.log("❌ SW failed:", err));
+          }, 100);
+        });
+      }
+    </script>
   </body>
 </html>
 

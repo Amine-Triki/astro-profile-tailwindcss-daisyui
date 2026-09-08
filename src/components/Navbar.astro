@@ -45,6 +45,9 @@ const currentPath = Astro.url.pathname;
           >
         </li>
         <li>
+          <a href="/services" class={currentPath === "/services" ? "active" : ""}>Services</a>
+        </li>
+        <li>
           <a href="/blog" class={currentPath === "/blog" ? "active" : ""}
             >Blog</a
           >
@@ -87,6 +90,15 @@ const currentPath = Astro.url.pathname;
           aria-current={currentPath === "/projects" ? "page" : undefined}
         >
           Projects
+        </a>
+      </li>
+      <li>
+        <a
+          href="/services"
+          class={`btn btn-ghost ${currentPath === "/services" ? "btn-active" : ""}`}
+          aria-current={currentPath === "/services" ? "page" : undefined}
+        >
+          Services
         </a>
       </li>
       <li>

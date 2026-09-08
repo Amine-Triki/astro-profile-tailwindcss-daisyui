@@ -1,0 +1,237 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const services = [
+	{
+		number: "01",
+		title: "Business Websites",
+		description:
+			"Modern, responsive websites for businesses, organizations, professionals, and personal projects.",
+		examples: [
+			"Company websites",
+			"Professional websites",
+			"Service websites",
+			"Portfolio websites",
+		],
+		icon: "M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Zm3 1h10M7 10h10M7 14h5",
+	},
+	{
+		number: "02",
+		title: "Landing Pages",
+		description:
+			"Focused landing pages designed to present a product, service, event, or idea clearly and effectively.",
+		icon: "M5 4h14v16H5zM8 8h8M8 12h8M8 16h5",
+	},
+	{
+		number: "03",
+		title: "E-commerce Websites",
+		description:
+			"Online stores with product catalogs and essential shopping features tailored to the project's needs.",
+		icon: "M4 5h2l2 11h10l2-8H7M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm8 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z",
+	},
+	{
+		number: "04",
+		title: "Web Applications",
+		description:
+			"Custom web applications designed to manage data, users, workflows, and business processes.",
+		examples: [
+			"Dashboards",
+			"Management systems",
+			"Booking systems",
+			"Educational platforms",
+			"Internal business tools",
+		],
+		icon: "M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Zm4 4h8M8 13h3M14 13h2M8 17h8",
+	},
+	{
+		number: "05",
+		title: "Mobile Applications",
+		description: "Modern mobile applications built for Android.",
+		icon: "M7 3h10v18H7zM10 6h4M11 18h2",
+	},
+	{
+		number: "06",
+		title: "Custom Digital Solutions",
+		description:
+			"Custom digital solutions built around the specific needs of a project, business, or organization.",
+		icon: "M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z",
+	},
+];
+
+const projectTypes = [
+	"Business website",
+	"Landing page",
+	"E-commerce store",
+	"Booking system",
+	"Management dashboard",
+	"Educational platform",
+	"Inventory management system",
+	"Customer management system",
+	"Online tools platform",
+	"Android mobile application",
+	"PWA",
+];
+
+const process = [
+	["01", "Understand", "Understand the idea, goals, and requirements."],
+	["02", "Plan", "Define the structure, features, and user experience."],
+	["03", "Build", "Develop the solution and test it across devices."],
+	["04", "Deliver", "Prepare the project for deployment and handover."],
+];
+
+const technologies = [
+	"React",
+	"Node.js",
+	"Express",
+    "Laravel",
+	"Supabase",
+	"PostgreSQL",
+	"Next.js",
+	"Flutter",
+];
+---
+
+<Layout
+	title="Services | Amine Triki - Full Stack & Flutter Developer"
+	description="Websites, web applications, e-commerce websites, and Android mobile applications built for businesses and digital projects."
+>
+	<main>
+		<section class="bg-base-200 px-4 py-20 md:py-28">
+			<div class="container mx-auto max-w-6xl">
+				<div class="max-w-3xl">
+					<p class="mb-4 font-semibold uppercase tracking-[0.2em] text-primary">Services</p>
+					<h1 class="text-4xl font-bold leading-tight md:text-6xl">Digital solutions for ideas that need to move forward.</h1>
+					<p class="mt-6 max-w-2xl text-lg leading-relaxed text-base-content/70 md:text-xl">
+						I build clear, responsive websites, web applications, and Android apps for businesses, organizations, and digital projects.
+					</p>
+					<div class="mt-8 flex flex-wrap gap-4">
+						<a href="/contact" class="btn btn-primary">Let's Talk</a>
+						<a href="/projects" class="btn btn-outline">View My Projects</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="px-4 py-20 md:py-24" aria-labelledby="services-heading">
+			<div class="container mx-auto max-w-6xl">
+				<div class="mb-12 max-w-2xl">
+					<p class="mb-3 font-semibold uppercase tracking-[0.2em] text-primary">What I offer</p>
+					<h2 id="services-heading" class="text-3xl font-bold md:text-4xl">Services built around useful results</h2>
+				</div>
+				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+					{services.map((service) => (
+						<article class="card border border-base-300 bg-base-100 shadow-sm transition-transform duration-300 hover:-translate-y-1">
+							<div class="card-body">
+								<div class="mb-6 flex items-center justify-between">
+									<span class="text-sm font-semibold text-primary">{service.number}</span>
+									<svg class="size-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" d={service.icon} />
+									</svg>
+								</div>
+								<h3 class="card-title text-2xl">{service.title}</h3>
+								<p class="mt-2 leading-relaxed text-base-content/70">{service.description}</p>
+								{service.examples && (
+									<ul class="mt-5 space-y-2 text-sm text-base-content/70">
+										{service.examples.map((example) => <li class="flex gap-2"><span class="text-primary">&#x2022;</span>{example}</li>)}
+									</ul>
+								)}
+							</div>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="bg-base-200 px-4 py-20 md:py-24" aria-labelledby="case-study-heading">
+			<div class="container mx-auto max-w-6xl">
+				<div class="grid items-center gap-10 lg:grid-cols-[1fr_1.4fr]">
+					<div>
+						<p class="mb-3 font-semibold uppercase tracking-[0.2em] text-primary">Proof of work</p>
+						<h2 id="case-study-heading" class="text-3xl font-bold md:text-4xl">M.J.S.E</h2>
+						<p class="mt-4 text-lg leading-relaxed text-base-content/70">An informational website built as a volunteer contribution for a governmental youth institution.</p>
+						<a href="https://mjses.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline mt-6">Visit mjses.com</a>
+					</div>
+					<div class="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm md:p-8">
+						<div>
+							<div>
+								<h3 class="font-semibold">What it presents</h3>
+								<p class="mt-2 leading-relaxed text-base-content/70">Introduces the institution and gives visitors access to its general information, location, address, contact details, events, and site map.</p>
+							</div>
+							<div class="mt-6">
+								<h3 class="font-semibold">Content and activities</h3>
+								<p class="mt-2 leading-relaxed text-base-content/70">Visitors can explore member information, specialist clubs and their schedules, available rooms, activities, events, news, and partnerships.</p>
+							</div>
+						</div>
+						<div class="mt-8 border-t border-base-300 pt-6">
+							<h3 class="font-semibold">Project built with</h3>
+							<div class="mt-3 flex flex-wrap gap-2">
+								{['Next.js', 'Supabase', 'shadcn/ui', 'Tailwind CSS'].map((technology) => <span class="badge badge-outline">{technology}</span>)}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="px-4 py-20 md:py-24" aria-labelledby="build-heading">
+			<div class="container mx-auto max-w-6xl">
+				<div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+					<div>
+						<p class="mb-3 font-semibold uppercase tracking-[0.2em] text-primary">Project types</p>
+						<h2 id="build-heading" class="text-3xl font-bold md:text-4xl">What I can build</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">Practical digital products shaped around the way you work and the people you serve.</p>
+					</div>
+					<div class="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+						{projectTypes.map((type) => <div class="flex items-center gap-3 border-b border-base-300 pb-3"><span class="text-primary">&#x2022;</span><span>{type}</span></div>)}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="bg-base-200 px-4 py-20 md:py-24" aria-labelledby="process-heading">
+			<div class="container mx-auto max-w-6xl">
+				<div class="mb-12 max-w-2xl">
+					<p class="mb-3 font-semibold uppercase tracking-[0.2em] text-primary">How I work</p>
+					<h2 id="process-heading" class="text-3xl font-bold md:text-4xl">A clear process from idea to handover</h2>
+				</div>
+				<div class="grid gap-8 md:grid-cols-4">
+					{process.map(([number, title, description]) => (
+						<div class="border-l-2 border-primary pl-5">
+							<span class="text-sm font-semibold text-primary">{number}</span>
+							<h3 class="mt-3 text-xl font-bold">{title}</h3>
+							<p class="mt-2 leading-relaxed text-base-content/70">{description}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="px-4 py-20 md:py-24" aria-labelledby="technologies-heading">
+			<div class="container mx-auto max-w-6xl">
+				<div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+					<div class="max-w-xl">
+						<p class="mb-3 font-semibold uppercase tracking-[0.2em] text-primary">Technologies I use</p>
+						<h2 id="technologies-heading" class="text-3xl font-bold md:text-4xl">A focused main stack</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">The tools I use to turn project requirements into maintainable digital products.</p>
+					</div>
+					<div class="flex max-w-md flex-wrap gap-3 md:justify-end">
+						{technologies.map((technology) => <span class="badge badge-lg badge-primary badge-outline">{technology}</span>)}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="bg-primary px-4 py-20 text-primary-content md:py-24">
+			<div class="container mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+				<div class="max-w-2xl">
+					<h2 class="text-3xl font-bold md:text-4xl">Have a project in mind?</h2>
+					<p class="mt-4 text-lg text-primary-content/80">Tell me what you want to build and let's discuss the right solution for your project.</p>
+				</div>
+				<div class="flex flex-wrap gap-4">
+					<a href="/contact" class="btn bg-base-100 text-base-content hover:bg-base-200">Let's Talk</a>
+					<a href="/projects" class="btn btn-outline border-primary-content/50 text-primary-content hover:border-primary-content hover:bg-primary-content/10">View My Projects</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>

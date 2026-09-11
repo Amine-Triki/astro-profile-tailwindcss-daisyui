@@ -139,9 +139,9 @@ import Heading from "../components/Heading.astro";
   }
 
   function renderCard(project: Project, emphasized = false) {
-    const stacks = project.variants
-      ? project.variants.map((variant) => `<a href="${safeUrl(variant.link)}" target="_blank" rel="noopener noreferrer" class="badge badge-ghost badge-sm">${escapeHtml(variant.stack)}</a>`).join("")
-      : (project.technologies ?? []).map((technology) => `<span class="badge badge-ghost badge-sm">${escapeHtml(technology)}</span>`).join("");
+    const stacks = (project.technologies ?? [])
+      .map((technology) => `<span class="badge badge-ghost badge-sm">${escapeHtml(technology)}</span>`)
+      .join("");
 
     return `<article class="card bg-base-100 shadow-lg">
       <figure><img src="${safeUrl(project.imageSrc)}" alt="${escapeHtml(project.title)}" class="${emphasized ? "h-56" : "h-40"} w-full object-cover" loading="lazy" /></figure>
@@ -168,9 +168,10 @@ import Heading from "../components/Heading.astro";
 
       const projects = (await response.json()) as Project[];
       currentProjects = projects;
+      const allProjects = projects.filter((project) => !project.featured);
       const categories = [
         "all",
-        ...new Set(projects.map((project) => project.category)),
+        ...new Set(allProjects.map((project) => project.category)),
       ];
 
       if (!spinner || !featuredGrid || !projectsGrid || !categoryTabs) return;
@@ -189,7 +190,7 @@ import Heading from "../components/Heading.astro";
         .join("");
 
       function renderProjects(filter = "all") {
-        projectsGridElement.innerHTML = projects
+        projectsGridElement.innerHTML = allProjects
           .filter((project) => filter === "all" || project.category === filter)
           .map((project) => renderCard(project))
           .join("");

@@ -5,41 +5,157 @@ import Heading from "../components/Heading.astro";
 <div class="py-10 container mx-auto">
   <Heading title="My Projects" subTitle="What I build" />
 
-  <!-- Tabs -->
-  <div id="category-tabs" class="flex flex-wrap justify-center mb-8 space-x-2 space-y-3">
-    <!-- Filled from the project categories in the JSON response. -->
-  </div>
-
-  <!-- Loading Spinner -->
   <div id="spinner" class="flex justify-center items-center min-h-[50vh]">
     <span class="loading loading-spinner text-primary"></span>
   </div>
 
-  <!-- Projects Grid -->
-  <div
-    id="projects-grid"
-    class="grid gap-6 justify-center
-         grid-cols-[repeat(auto-fill,300px)]"
-  >
-    <!-- سيتم ملؤه بواسطة JS -->
-  </div>
+  <section aria-labelledby="featured-projects-title" class="mb-12">
+    <h2 id="featured-projects-title" class="mb-6 text-2xl font-bold text-primary">Featured Projects</h2>
+    <div
+      id="featured-grid"
+      class="grid gap-6 justify-center grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
+    ></div>
+  </section>
+
+  <section aria-labelledby="all-projects-title">
+    <h2 id="all-projects-title" class="mb-6 text-2xl font-bold text-primary">All Projects</h2>
+
+    <div id="category-tabs" class="flex flex-wrap justify-center mb-8 gap-2">
+    </div>
+
+    <div
+      id="projects-grid"
+      class="grid gap-6 justify-center grid-cols-[repeat(auto-fill,minmax(280px,1fr))]"
+    ></div>
+
+  </section>
 </div>
 
+<dialog id="screenshots-modal" class="modal">
+  <div class="modal-box max-w-3xl">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close screenshots">&times;</button>
+    </form>
+    <h2 id="screenshots-title" class="pr-8 text-xl font-bold"></h2>
+    <img id="screenshot-main" class="mt-4 max-h-[60vh] w-full rounded-box object-contain" alt="" />
+    <div id="screenshot-thumbnails" class="mt-4 flex gap-2 overflow-x-auto pb-2"></div>
+  </div>
+  <form method="dialog" class="modal-backdrop"><button>close</button></form>
+</dialog>
 
 <script>
-  type Project = {
-    category: string;
-    title: string;
-    description: string;
-    technologies: string[];
+  interface ProjectVariant {
+    stack: string;
     link: string;
     github: string;
+  }
+
+  interface Project {
+    category: "Website" | "Web App" | "Tool" | "Mobile App";
+    title: string;
+    description: string;
+    technologies?: string[];
+    featured: boolean;
+    link?: string;
+    github?: string;
     imageSrc: string;
-  };
+    variants?: ProjectVariant[];
+    screenshots?: string[];
+  }
 
   const spinner = document.getElementById("spinner");
-  const grid = document.getElementById("projects-grid");
+  const featuredGrid = document.getElementById("featured-grid");
+  const projectsGrid = document.getElementById("projects-grid");
   const categoryTabs = document.getElementById("category-tabs");
+  const screenshotsModal = document.getElementById("screenshots-modal") as HTMLDialogElement | null;
+  const screenshotsTitle = document.getElementById("screenshots-title");
+  const screenshotMain = document.getElementById("screenshot-main") as HTMLImageElement | null;
+  const screenshotThumbnails = document.getElementById("screenshot-thumbnails");
+
+  function escapeHtml(value: string) {
+    return value.replace(/[&<>'"]/g, (character) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      '"': "&quot;",
+    })[character] ?? character);
+  }
+
+  function safeUrl(value: string) {
+    return /^https?:\/\//i.test(value) ? value : "#";
+  }
+
+  function renderActions(project: Project) {
+    if (project.variants) {
+      return project.variants.map((variant) => `
+        <div class="flex items-center gap-1">
+          <a href="${safeUrl(variant.link)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">${escapeHtml(variant.stack)}</a>
+          ${variant.github ? `<a href="${safeUrl(variant.github)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-square btn-error text-black" aria-label="${escapeHtml(variant.stack)} GitHub">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 8.18c.85 0 1.71.12 2.51.37 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12C22 6.48 17.52 2 12 2Z" /></svg>
+          </a>` : ""}
+        </div>
+      `).join("");
+    }
+
+    return [
+      project.link ? `<a href="${safeUrl(project.link)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info text-white">Live Preview</a>` : "",
+      project.github ? `<a href="${safeUrl(project.github)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-error text-black">GitHub</a>` : "",
+      project.screenshots?.length ? `<button type="button" data-screenshot-project="${projectIndex(project)}" class="screenshot-btn btn btn-sm btn-outline">View Screenshots</button>` : "",
+    ].join("");
+  }
+
+  let currentProjects: Project[] = [];
+
+  function projectIndex(project: Project) {
+    return currentProjects.indexOf(project);
+  }
+
+  function openScreenshots(project: Project) {
+    if (!project.screenshots?.length || !screenshotsModal || !screenshotsTitle || !screenshotMain || !screenshotThumbnails) return;
+
+    screenshotsTitle.textContent = `${project.title} screenshots`;
+    screenshotThumbnails.innerHTML = project.screenshots.map((screenshot, index) => `
+      <button type="button" data-screenshot-index="${index}" class="screenshot-thumbnail shrink-0 rounded-box border-2 border-transparent p-1" aria-label="View screenshot ${index + 1}">
+        <img src="${safeUrl(screenshot)}" alt="" class="h-16 w-16 object-cover" />
+      </button>
+    `).join("");
+
+    const showScreenshot = (index: number) => {
+      const screenshot = project.screenshots?.[index];
+      if (!screenshot) return;
+      screenshotMain.src = safeUrl(screenshot);
+      screenshotMain.alt = `${project.title} screenshot ${index + 1}`;
+      screenshotThumbnails.querySelectorAll(".screenshot-thumbnail").forEach((thumbnail, thumbnailIndex) => {
+        thumbnail.classList.toggle("border-primary", thumbnailIndex === index);
+      });
+    };
+
+    screenshotThumbnails.querySelectorAll<HTMLButtonElement>(".screenshot-thumbnail").forEach((thumbnail) => {
+      thumbnail.addEventListener("click", () => showScreenshot(Number(thumbnail.dataset.screenshotIndex)));
+    });
+    showScreenshot(0);
+    screenshotsModal.showModal();
+  }
+
+  function renderCard(project: Project, emphasized = false) {
+    const stacks = project.variants
+      ? project.variants.map((variant) => `<a href="${safeUrl(variant.link)}" target="_blank" rel="noopener noreferrer" class="badge badge-ghost badge-sm">${escapeHtml(variant.stack)}</a>`).join("")
+      : (project.technologies ?? []).map((technology) => `<span class="badge badge-ghost badge-sm">${escapeHtml(technology)}</span>`).join("");
+
+    return `<article class="card bg-base-100 shadow-lg">
+      <figure><img src="${safeUrl(project.imageSrc)}" alt="${escapeHtml(project.title)}" class="${emphasized ? "h-56" : "h-40"} w-full object-cover" loading="lazy" /></figure>
+      <div class="card-body">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="card-title text-primary">${escapeHtml(project.title)}</h3>
+          <span class="badge badge-outline shrink-0">${escapeHtml(project.category)}</span>
+        </div>
+        <p class="${emphasized ? "leading-relaxed" : ""}">${escapeHtml(project.description)}</p>
+        <div class="flex flex-wrap gap-2">${stacks}</div>
+        <div class="card-actions justify-center gap-2 mt-2">${renderActions(project)}</div>
+      </div>
+    </article>`;
+  }
 
   async function loadProjects() {
     try {
@@ -51,18 +167,18 @@ import Heading from "../components/Heading.astro";
       }
 
       const projects = (await response.json()) as Project[];
+      currentProjects = projects;
       const categories = [
         "all",
         ...new Set(projects.map((project) => project.category)),
       ];
 
-      if (!spinner || !grid || !categoryTabs) return;
-      const projectsSpinner = spinner;
-      const projectsGrid = grid;
-      const projectsCategoryTabs = categoryTabs;
+      if (!spinner || !featuredGrid || !projectsGrid || !categoryTabs) return;
 
-      projectsSpinner.style.display = "none";
-      projectsCategoryTabs.innerHTML = categories
+      const projectsGridElement = projectsGrid;
+      spinner.style.display = "none";
+      featuredGrid.innerHTML = projects.filter((project) => project.featured).map((project) => renderCard(project, true)).join("");
+      categoryTabs.innerHTML = categories
         .map(
           (category) => `
             <button class="tab-btn btn btn-sm btn-outline" data-category="${category}">
@@ -73,39 +189,14 @@ import Heading from "../components/Heading.astro";
         .join("");
 
       function renderProjects(filter = "all") {
-        projectsGrid.innerHTML = "";
-        projects
+        projectsGridElement.innerHTML = projects
           .filter((project) => filter === "all" || project.category === filter)
-          .forEach((p) => {
-            const card = document.createElement("div");
-            card.className = "card bg-base-100 shadow-lg";
-            card.innerHTML = `
-              <figure>
-                <img src="${p.imageSrc}" alt="${p.title}" class="h-40 w-full object-cover"/>
-              </figure>
-              <div class="card-body">
-                <div class="flex items-start justify-between gap-3">
-                  <h2 class="card-title text-primary">${p.title}</h2>
-                  <span class="badge badge-outline shrink-0">${p.category}</span>
-                </div>
-                <p>${p.description}</p>
-                <div class="flex flex-wrap gap-2">
-                  ${p.technologies.map((technology) => `<span class="badge badge-ghost badge-sm">${technology}</span>`).join("")}
-                </div>
-                <div class="card-actions justify-around mt-2">
-                  ${p.github ? `<a href="${p.github}" target="_blank" class="btn btn-sm btn-error text-black">Github</a>` : ""}
-                  ${p.link ? `<a href="${p.link}" target="_blank" class="btn btn-sm btn-info text-white">Preview</a>` : ""}
-                </div>
-              </div>
-            `;
-              projectsGrid.appendChild(card);
-          });
+          .map((project) => renderCard(project))
+          .join("");
       }
 
-      // عرض جميع المشاريع عند البداية
       renderProjects();
 
-      // Add event listeners to the categories derived from the JSON data.
       document.querySelectorAll<HTMLButtonElement>(".tab-btn").forEach((btn) => {
         btn.addEventListener("click", (event) => {
           const clickedButton = event.currentTarget as HTMLButtonElement;
@@ -119,7 +210,16 @@ import Heading from "../components/Heading.astro";
         });
       });
 
-      projectsCategoryTabs.querySelector<HTMLButtonElement>(".tab-btn")?.classList.add("btn-primary");
+      categoryTabs.querySelector<HTMLButtonElement>(".tab-btn")?.classList.add("btn-primary");
+
+      [featuredGrid, projectsGridElement].forEach((projectGrid) => {
+        projectGrid.addEventListener("click", (event) => {
+          const button = (event.target as HTMLElement).closest<HTMLButtonElement>(".screenshot-btn");
+          if (!button) return;
+          const project = currentProjects[Number(button.dataset.screenshotProject)];
+          if (project) openScreenshots(project);
+        });
+      });
     } catch (error) {
       if (spinner) {
         spinner.innerHTML = `<p class="text-red-500">Failed to load projects</p>`;

@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Icons from "../../components/Icons.astro";
 ---
 
 <Layout>
@@ -101,9 +102,13 @@ import Layout from "../../layouts/Layout.astro";
                 ></path>
               </svg>
               <div class="text-base-content break-all">
-                <span class="font-bold">Email :</span> amine.triki@live.com
+                <span class="font-bold">Email :</span> 
+                 <a href="mailto:amine.triki@live.com" class="link link-hover">
+                  amine.triki@live.com</a>
               </div>
             </div>
+            or send me a message on social media:
+            <Icons only={["Facebook", "LinkedIn"]} />
           </div>
         </div>
 

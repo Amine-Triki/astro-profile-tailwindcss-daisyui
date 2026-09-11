@@ -1,4 +1,10 @@
 ---
+interface Props {
+  only?: string[];
+}
+
+const { only } = Astro.props;
+
 const icons = [
   {
     name: "Facebook",
@@ -33,11 +39,13 @@ const icons = [
     link: "https://www.linkedin.com/in/amine-triki-tn/",
   },
 ];
+
+const visibleIcons = only ? icons.filter((icon) => only.includes(icon.name)) : icons;
 ---
 
 <div class="flex gap-4 my-8 justify-center md:justify-start">
   {
-    icons.map((icon, index) => (
+    visibleIcons.map((icon, index) => (
       <a
         href={icon.link}
         title={icon.name}

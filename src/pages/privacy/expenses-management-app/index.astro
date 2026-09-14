@@ -1,0 +1,103 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout
+	title="Privacy Policy | Expense Tracker"
+	description="Privacy Policy for the Expense Tracker app developed by Amine Triki."
+>
+	<main>
+		<section class="bg-base-200 px-4 py-16 md:py-24">
+			<div class="container mx-auto max-w-5xl">
+				<div class="max-w-3xl">
+					<div class="mb-5 flex flex-wrap items-center gap-3">
+						<span class="badge badge-primary badge-lg">Privacy Policy</span>
+						<span class="text-sm text-base-content/60">Last updated: 14 Sep 2026</span>
+					</div>
+					<h1 class="text-4xl font-bold leading-tight md:text-6xl">Privacy, expenses management app.</h1>
+					<p class="mt-6 text-lg leading-relaxed text-base-content/70 md:text-xl">
+						This Privacy Policy explains how the Expense Tracker app ("Expense Tracker app "), developed by Amine Triki, handles information.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="px-4 py-12 md:py-20">
+			<div class="container mx-auto max-w-5xl">
+				<div class="alert border border-primary/20 bg-primary/5 shadow-sm" role="note">
+					<svg class="size-7 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 3 4 6v5c0 5 3.4 8.8 8 10 4.6-1.2 8-5 8-10V6l-8-3Zm-3 9 2 2 4-4" />
+					</svg>
+					<div>
+						<h2 class="font-bold">Your data stays on your device</h2>
+						<p class="mt-1 text-base-content/70">The app does not collect, store, transmit, or share any personal or financial data with anyone, including the developer.</p>
+					</div>
+				</div>
+
+				<div class="mt-12 grid gap-6 md:grid-cols-2">
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">Data collection</h2>
+							<p class="leading-relaxed text-base-content/70">The app does not collect any data. Specifically:</p>
+							<ul class="mt-2 space-y-3 text-base-content/80">
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>No account or sign-up is required or offered.</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>No expense, budget, or shopping list data is sent to any server.</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>No analytics, tracking, or advertising SDKs are used.</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>No device identifiers, location, or usage statistics are collected.</li>
+							</ul>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">Data storage</h2>
+							<p class="leading-relaxed text-base-content/70">All information you enter, including expenses, budgets, shopping lists, and settings, is stored locally on your device only using on-device storage.</p>
+							<p class="leading-relaxed text-base-content/70">The app works fully offline and does not require an internet connection to function.</p>
+							<div class="rounded-box bg-base-200 p-4 text-sm leading-relaxed">
+								You can permanently delete all app data at any time from <strong>Settings &rarr; Delete all data</strong>. Uninstalling the app also removes all locally stored data.
+							</div>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">Data sharing with third parties</h2>
+							<p class="leading-relaxed text-base-content/70">The app does not share any data with third parties, because no data ever leaves your device.</p>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">Permissions</h2>
+							<p class="leading-relaxed text-base-content/70">The app requests only the minimum device permissions required for its core functionality, such as local storage access. It does not request access to contacts, camera, microphone, location, or any other sensitive permission unrelated to its purpose.</p>
+						</div>
+					</article>
+				</div>
+
+				<div class="mt-6 grid gap-6 md:grid-cols-2">
+					<article class="rounded-box border border-base-300 bg-base-200 p-6 md:p-8">
+						<h2 class="text-2xl font-bold">Children's privacy</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">The app does not knowingly collect any information from anyone, including children, since it collects no information at all.</p>
+					</article>
+					<article class="rounded-box border border-base-300 bg-base-200 p-6 md:p-8">
+						<h2 class="text-2xl font-bold">Changes to this policy</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">If this policy changes in the future, for example if a new feature requires data handling, this page will be updated and the "Last updated" date above will reflect the change.</p>
+					</article>
+				</div>
+
+				<section class="mt-12 border-t border-base-300 pt-10" aria-labelledby="contact-heading">
+					<div class="max-w-2xl">
+						<p class="mb-3 font-semibold uppercase tracking-[0.2em] text-primary">Questions?</p>
+						<h2 id="contact-heading" class="text-3xl font-bold md:text-4xl">Contact</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">If you have any questions about this Privacy Policy, contact:</p>
+						<div class="mt-6 space-y-3">
+							<p class="font-semibold">Amine Triki</p>
+							<p><span class="font-medium">Website:</span> <a class="link link-primary" href="https://amine-triki.tn" target="_blank" rel="noopener noreferrer">amine-triki.tn</a></p>
+							<p><span class="font-medium">Email:</span> <a class="link link-primary" href="mailto:amine.triki@live.com">amine.triki@live.com</a></p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
+	</main>
+</Layout>

@@ -99,5 +99,98 @@ import Layout from "../../../layouts/Layout.astro";
 				</section>
 			</div>
 		</section>
+
+		<section class="border-t border-base-300 px-4 py-12 md:py-20" lang="zh-CN">
+			<div class="container mx-auto max-w-5xl">
+				<div class="max-w-3xl">
+					<div class="mb-5 flex flex-wrap items-center gap-3">
+						<span class="badge badge-primary badge-lg">隐私政策</span>
+						<span class="text-sm text-base-content/60">最后更新：2026年9月14日</span>
+					</div>
+					<h1 class="text-4xl font-bold leading-tight md:text-6xl">隐私政策：费用管理应用。</h1>
+					<p class="mt-6 text-lg leading-relaxed text-base-content/70 md:text-xl">
+						本隐私政策说明由 Amine Triki 开发的 Expense Tracker 应用如何处理信息。
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="px-4 py-12 md:py-20" lang="zh-CN">
+			<div class="container mx-auto max-w-5xl">
+				<div class="alert border border-primary/20 bg-primary/5 shadow-sm" role="note">
+					<svg class="size-7 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 3 4 6v5c0 5 3.4 8.8 8 10 4.6-1.2 8-5 8-10V6l-8-3Zm-3 9 2 2 4-4" />
+					</svg>
+					<div>
+						<h2 class="font-bold">您的数据仅保留在您的设备上</h2>
+						<p class="mt-1 text-base-content/70">本应用不会收集、存储、传输或与任何人分享任何个人或财务数据，包括开发者。</p>
+					</div>
+				</div>
+
+				<div class="mt-12 grid gap-6 md:grid-cols-2">
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">数据收集</h2>
+							<p class="leading-relaxed text-base-content/70">本应用不会收集任何数据，具体包括：</p>
+							<ul class="mt-2 space-y-3 text-base-content/80">
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>无需创建或注册账户。</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>任何费用、预算或购物清单数据都不会发送到服务器。</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>不使用分析、跟踪或广告 SDK。</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>不会收集设备标识符、位置或使用统计信息。</li>
+							</ul>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">数据存储</h2>
+							<p class="leading-relaxed text-base-content/70">您输入的所有信息，包括费用、预算、购物清单和设置，仅使用设备本地存储保存在您的设备上。</p>
+							<p class="leading-relaxed text-base-content/70">本应用完全支持离线使用，无需互联网连接即可运行。</p>
+							<div class="rounded-box bg-base-200 p-4 text-sm leading-relaxed">
+								您可以随时通过<strong>设置 &rarr; 删除所有数据</strong>永久删除所有应用数据。卸载应用也会删除所有本地存储的数据。
+							</div>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">与第三方共享数据</h2>
+							<p class="leading-relaxed text-base-content/70">本应用不会与第三方共享任何数据，因为任何数据都不会离开您的设备。</p>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">权限</h2>
+							<p class="leading-relaxed text-base-content/70">本应用仅请求核心功能所需的最少设备权限，例如本地存储访问权限。本应用不会请求访问联系人、相机、麦克风、位置或任何其他与其用途无关的敏感权限。</p>
+						</div>
+					</article>
+				</div>
+
+				<div class="mt-6 grid gap-6 md:grid-cols-2">
+					<article class="rounded-box border border-base-300 bg-base-200 p-6 md:p-8">
+						<h2 class="text-2xl font-bold">儿童隐私</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">由于本应用完全不收集信息，因此不会在明知的情况下收集包括儿童在内的任何人的信息。</p>
+					</article>
+					<article class="rounded-box border border-base-300 bg-base-200 p-6 md:p-8">
+						<h2 class="text-2xl font-bold">政策变更</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">如果未来本政策发生变化，例如新功能需要处理数据，我们会更新此页面，上方的“最后更新”日期也会同步变更。</p>
+					</article>
+				</div>
+
+				<section class="mt-12 border-t border-base-300 pt-10" aria-labelledby="contact-heading-zh">
+					<div class="max-w-2xl">
+						<p class="mb-3 font-semibold uppercase tracking-[0.2em] text-primary">有问题吗？</p>
+						<h2 id="contact-heading-zh" class="text-3xl font-bold md:text-4xl">联系方式</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">如果您对本隐私政策有任何疑问，请联系：</p>
+						<div class="mt-6 space-y-3">
+							<p class="font-semibold">Amine Triki</p>
+							<p><span class="font-medium">网站：</span> <a class="link link-primary" href="https://amine-triki.tn" target="_blank" rel="noopener noreferrer">amine-triki.tn</a></p>
+							<p><span class="font-medium">电子邮件：</span> <a class="link link-primary" href="mailto:amine.triki@live.com">amine.triki@live.com</a></p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
 	</main>
 </Layout>

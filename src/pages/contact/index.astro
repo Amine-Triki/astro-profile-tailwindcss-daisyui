@@ -46,8 +46,8 @@ import Icons from "../../components/Icons.astro";
           <div>
             <h3 class="text-3xl font-bold mb-4">Get in touch</h3>
             <p class="text-lg text-base-content/80 leading-relaxed">
-              If you have any questions or proposals, you can simply write
-              to us.<br />
+              If you have any questions or proposals, you can simply write to
+              us.<br />
               We will answer you as soon as possible.
             </p>
           </div>
@@ -84,8 +84,7 @@ import Icons from "../../components/Icons.astro";
                 ></path>
               </svg>
               <div class="text-base-content">
-                <span class="font-bold">Address :</span> Sakiet Ezzit, Sfax,
-                Tunisia
+                <span class="font-bold">Address :</span> Sakiet Ezzit, Sfax, Tunisia
               </div>
             </div>
 
@@ -102,9 +101,10 @@ import Icons from "../../components/Icons.astro";
                 ></path>
               </svg>
               <div class="text-base-content break-all">
-                <span class="font-bold">Email :</span> 
-                 <a href="mailto:amine.triki@live.com" class="link link-hover">
-                  amine.triki@live.com</a>
+                <span class="font-bold">Email :</span>
+                <a href="mailto:amine.triki@live.com" class="link link-hover">
+                  amine.triki@live.com</a
+                >
               </div>
             </div>
             or send me a message on social media:
@@ -149,7 +149,7 @@ import Icons from "../../components/Icons.astro";
               </label>
               <input
                 type="email"
-                name="email" 
+                name="email"
                 placeholder="example@example.com"
                 class="input input-bordered w-full"
                 required
@@ -162,7 +162,7 @@ import Icons from "../../components/Icons.astro";
               </label>
               <input
                 type="text"
-                 name="subject"
+                name="subject"
                 placeholder="How can we help you?"
                 class="input input-bordered w-full"
                 required
@@ -174,18 +174,31 @@ import Icons from "../../components/Icons.astro";
                 <span class="label-text font-medium">Message</span>
               </label>
               <textarea
-              name="message"
+                name="message"
                 class="textarea textarea-bordered w-full h-32 resize-none"
                 placeholder="Write your message here..."
                 required></textarea>
             </div>
 
-  <!-- honeypot ضد البوتات -->
+            <!-- honeypot ضد البوتات -->
 
-              <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-
+            <input
+              type="text"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+              class="hidden"
+              aria-hidden="true"
+            />
+            <div
+              class="cf-turnstile"
+              data-sitekey="0x4AAAAAAFdqCEhSdAJ4px3t"
+              data-theme="auto"
+            >
+            </div>
+            <p id="contactStatus" class="min-h-6 text-sm" role="status"></p>
             <button
-              type="submit" disabled
+              type="submit"
               class="btn btn-wide bg-amber-950 hover:bg-amber-900 text-white border-none"
             >
               Send
@@ -195,8 +208,17 @@ import Icons from "../../components/Icons.astro";
       </div>
     </div>
   </section>
-
+  <script
+    is:inline
+    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    async
+    defer
+  ></script>
   <script>
+    interface TurnstileWindow extends Window {
+      turnstile?: { reset: () => void };
+    }
+
     document
       .getElementById("contactForm")
       ?.addEventListener("submit", function (e) {
@@ -204,10 +226,27 @@ import Icons from "../../components/Icons.astro";
 
         const form = e.target as HTMLFormElement;
         const btn = form.querySelector(
-          'button[type="submit"]'
+          'button[type="submit"]',
         ) as HTMLButtonElement;
 
         if (!btn) return;
+
+        const status = document.getElementById("contactStatus");
+        if (status) {
+          status.textContent = "";
+          status.className = "min-h-6 text-sm";
+        }
+        const turnstileToken = form.elements.namedItem(
+          "cf-turnstile-response",
+        ) as HTMLInputElement | null;
+
+        if (!turnstileToken?.value) {
+          if (status) {
+            status.textContent = "Please complete the security check.";
+            status.className = "min-h-6 text-sm text-error";
+          }
+          return;
+        }
 
         const originalText = btn.innerHTML;
 
@@ -215,19 +254,50 @@ import Icons from "../../components/Icons.astro";
           '<span class="loading loading-spinner loading-sm"></span> Sending...';
         btn.disabled = true;
 
-        setTimeout(() => {
-          btn.innerHTML = "✓ Sent Successfully!";
-          btn.classList.remove("bg-amber-950", "hover:bg-amber-900");
-          btn.classList.add("btn-success");
+        fetch("/api/contact", {
+          method: "POST",
+          body: new FormData(form),
+        })
+          .then(async (response) => {
+            const result = (await response.json()) as {
+              ok?: boolean;
+              error?: string;
+            };
 
-          setTimeout(() => {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            btn.classList.remove("btn-success");
-            btn.classList.add("bg-amber-950", "hover:bg-amber-900");
+            if (!response.ok || !result.ok) {
+              throw new Error(result.error || "Unable to send your message.");
+            }
+
+            btn.innerHTML = "✓ Sent Successfully!";
+            btn.classList.remove("bg-amber-950", "hover:bg-amber-900");
+            btn.classList.add("btn-success");
+            if (status) {
+              status.textContent = "Your message was sent successfully.";
+              status.className = "min-h-6 text-sm text-success";
+            }
             form.reset();
-          }, 2000);
-        }, 1500);
+          })
+          .catch((error: unknown) => {
+            btn.innerHTML = originalText;
+            btn.classList.remove("bg-amber-950", "hover:bg-amber-900");
+            btn.classList.add("btn-error");
+            if (status) {
+              status.textContent =
+                error instanceof Error
+                  ? error.message
+                  : "Unable to send your message.";
+              status.className = "min-h-6 text-sm text-error";
+            }
+          })
+          .finally(() => {
+            window.setTimeout(() => {
+              btn.classList.remove("btn-success", "btn-error");
+              btn.classList.add("bg-amber-950", "hover:bg-amber-900");
+              btn.innerHTML = originalText;
+              btn.disabled = false;
+              (window as TurnstileWindow).turnstile?.reset();
+            }, 2000);
+          });
       });
   </script>
 </Layout>

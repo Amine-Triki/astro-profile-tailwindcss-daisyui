@@ -24,6 +24,9 @@ importers:
         specifier: ^4.1.17
         version: 4.1.17
     devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^5.20261019.1
+        version: 5.20261019.1
       daisyui:
         specifier: ^5.5.8
         version: 5.5.8
@@ -70,6 +73,9 @@ packages:
   '@capsizecss/unpack@3.0.1':
     resolution: {integrity: sha512-8XqW8xGn++Eqqbz3e9wKuK7mxryeRjs4LOHLxbh2lwKeSbuNR4NFifDZT4KzvjU6HMOPbiNTsWpniK5EJfTWkg==}
     engines: {node: '>=18'}
+
+  '@cloudflare/workers-types@5.20261019.1':
+    resolution: {integrity: sha512-llvvy7WBVhK+OfykyBkG9A7OgsGvgwHSNyU40XGVkiy/xVFy0t/xflyhEBHT+U59yQECZQbmcZsJtqCNnLpIRg==}
 
   '@emnapi/runtime@1.7.1':
     resolution: {integrity: sha512-PVtJr5CmLwYAU9PZDMITZoR5iAOShYREoR45EyyLrbntV50mdePTgUn4AmOw90Ifcj+x2kRjdzr1HP3RrNiHGA==}
@@ -1807,6 +1813,8 @@ snapshots:
   '@capsizecss/unpack@3.0.1':
     dependencies:
       fontkit: 2.0.4
+
+  '@cloudflare/workers-types@5.20261019.1': {}
 
   '@emnapi/runtime@1.7.1':
     dependencies:

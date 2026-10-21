@@ -8,6 +8,12 @@ const {
   title = "Amine Triki",
   description = " I’m a Full Stack Developer and creative content creator. I turn ideas into websites that are fast, modern, and very easy to use — helping businesses grow online. Whether you need a custom web application or a WordPress site, I focus on clean design and ensure everything works perfectly on phones, tablets, and computers (Responsive Design). Beyond coding",
 } = Astro.props;
+const {
+  canonical = new URL(Astro.url.pathname, "https://amine-triki.tn").href,
+  image = new URL("/icon-512x512.png", "https://amine-triki.tn").href,
+  type = "website",
+  structuredData,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -30,6 +36,15 @@ const {
       name="description"
       content={description}
     />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content="Amine Triki" />
+    {structuredData && <script type="application/ld+json" set:html={structuredData} />}
     <title>{title}</title>
   </head>
   <body>

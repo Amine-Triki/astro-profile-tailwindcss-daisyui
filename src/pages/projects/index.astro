@@ -1,13 +1,23 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ProjectsIsland from '../../components/ProjectsIsland.astro';
+const pageTitle = "Projects | Amine Triki";
+const pageDescription = "Explore Amine Triki's featured web apps, websites, tools, and mobile applications.";
+const structuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: pageTitle,
+  description: pageDescription,
+  url: "https://amine-triki.tn/projects/",
+  isPartOf: { "@type": "WebSite", name: "Amine Triki", url: "https://amine-triki.tn/" },
+});
 ---
 
-
-
-
-<Layout>
+<Layout title={pageTitle} description={pageDescription} canonical="https://amine-triki.tn/projects/" type="website" structuredData={structuredData}>
 	<div class="container mx-auto py-10">
-  <ProjectsIsland/>
+  <main aria-labelledby="projects-page-title">
+    <h1 id="projects-page-title" class="sr-only">Amine Triki projects</h1>
+    <ProjectsIsland/>
+  </main>
 </div>
 </Layout>

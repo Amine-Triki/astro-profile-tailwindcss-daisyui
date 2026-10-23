@@ -8,9 +8,49 @@ const messages = { security: t("contact.security"), sending: t("contact.sending"
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAFdqCEhSdAJ4px3t";
 ---
 <Layout lang={lang} title={`${t("contact.title")} | Amine Triki`} description={t("meta.contact")}><section class="min-h-screen bg-base-200 px-4 py-16"><div class="container mx-auto max-w-6xl"><div class="mb-12 text-center"><h1 class="mb-4 text-5xl font-bold text-error">{t("contact.title")}</h1><p class="text-xl text-base-content/70">{t("contact.subtitle")}</p></div><div class="grid gap-8 lg:grid-cols-2"><div class="space-y-8"><h2 class="text-3xl font-bold">{t("contact.subtitle")}</h2><p class="text-lg leading-relaxed text-base-content/80">{t("contact.intro")}</p><div class="space-y-4"><p><strong>{t("contact.name")}:</strong> Amine Triki</p><p><strong>{t("contact.address")}:</strong> Sakiet Ezzit, Sfax, Tunisia</p><p><strong>{t("contact.email")}:</strong> <a href="mailto:amine.triki@live.com" class="link">amine.triki@live.com</a></p>{t("contact.social")}<Icons only={["Facebook", "LinkedIn"]} /></div></div>
-  <form id="contactForm" action="/api/contact" method="post" class="space-y-4"><div class="grid gap-4 sm:grid-cols-2">{[["firstName","contact.first","contact.firstPlaceholder"],["lastName","contact.last","contact.lastPlaceholder"]].map(([name,label,placeholder]) => <div class="form-control"><label class="label"><span class="label-text font-medium">{t(label)}</span></label><input type="text" name={name} placeholder={t(placeholder)} class="input input-bordered w-full" required /></div>)}</div><label class="label"><span class="label-text font-medium">{t("contact.email")}</span></label><input type="email" name="email" placeholder={t("contact.emailPlaceholder")} class="input input-bordered w-full" required /><label class="label"><span class="label-text font-medium">{t("contact.subject")}</span></label><input type="text" name="subject" placeholder={t("contact.subjectPlaceholder")} class="input input-bordered w-full" required /><label class="label"><span class="label-text font-medium">{t("contact.message")}</span></label><textarea name="message" class="textarea textarea-bordered h-32 w-full resize-none" placeholder={t("contact.messagePlaceholder")} required></textarea><input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" /><div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto"></div><p id="contactStatus" class="min-h-6 text-sm" role="status"></p><button type="submit" class="btn btn-wide bg-amber-950 text-white">{t("contact.send")}</button></form></div></div></section></Layout>
+  <form id="contactForm" action="/api/contact" method="post" class="space-y-4"><div class="grid gap-4 sm:grid-cols-2">{([["firstName","contact.first","contact.firstPlaceholder"],["lastName","contact.last","contact.lastPlaceholder"]] as const).map(([name,label,placeholder]) => <div class="form-control"><label class="label"><span class="label-text font-medium">{t(label)}</span></label><input type="text" name={name} placeholder={t(placeholder)} class="input input-bordered w-full" required /></div>)}</div><label class="label"><span class="label-text font-medium">{t("contact.email")}</span></label><input type="email" name="email" placeholder={t("contact.emailPlaceholder")} class="input input-bordered w-full" required /><label class="label"><span class="label-text font-medium">{t("contact.subject")}</span></label><input type="text" name="subject" placeholder={t("contact.subjectPlaceholder")} class="input input-bordered w-full" required /><label class="label"><span class="label-text font-medium">{t("contact.message")}</span></label><textarea name="message" class="textarea textarea-bordered h-32 w-full resize-none" placeholder={t("contact.messagePlaceholder")} required></textarea><input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" /><div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto"></div><p id="contactStatus" class="min-h-6 text-sm" role="status"></p><button type="submit" class="btn btn-wide bg-amber-950 text-white">{t("contact.send")}</button></form></div></div></section></Layout>
 <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script define:vars={{ messages }}>
-  interface TurnstileWindow extends Window { turnstile?: { reset: () => void }; }
-  document.getElementById("contactForm")?.addEventListener("submit", async (event) => { event.preventDefault(); const form = event.currentTarget as HTMLFormElement; const button = form.querySelector("button") as HTMLButtonElement; const status = document.getElementById("contactStatus"); const token = form.elements.namedItem("cf-turnstile-response") as HTMLInputElement | null; if (!token?.value) { if (status) { status.textContent = messages.security; status.className = "min-h-6 text-sm text-error"; } return; } const original = button.innerHTML; button.innerHTML = `<span class="loading loading-spinner loading-sm"></span> ${messages.sending}`; button.disabled = true; try { const response = await fetch("/api/contact", { method: "POST", body: new FormData(form) }); const result = await response.json(); if (!response.ok || !result.ok) throw new Error(result.error || messages.error); button.textContent = messages.sent; if (status) { status.textContent = messages.success; status.className = "min-h-6 text-sm text-success"; } form.reset(); } catch (error) { button.innerHTML = original; if (status) { status.textContent = error instanceof Error ? error.message : messages.error; status.className = "min-h-6 text-sm text-error"; } } finally { setTimeout(() => { button.disabled = false; button.innerHTML = original; (window as TurnstileWindow).turnstile?.reset(); }, 2000); } });
+  document.getElementById("contactForm")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!(form instanceof HTMLFormElement)) return;
+    const button = form.querySelector("button");
+    if (!(button instanceof HTMLButtonElement)) return;
+    const status = document.getElementById("contactStatus");
+    const token = form.elements.namedItem("cf-turnstile-response");
+    if (!(token instanceof HTMLInputElement) || !token.value) {
+      if (status) {
+        status.textContent = messages.security;
+        status.className = "min-h-6 text-sm text-error";
+      }
+      return;
+    }
+    const original = button.innerHTML;
+    button.innerHTML = `<span class="loading loading-spinner loading-sm"></span> ${messages.sending}`;
+    button.disabled = true;
+    try {
+      const response = await fetch("/api/contact", { method: "POST", body: new FormData(form) });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || messages.error);
+      button.textContent = messages.sent;
+      if (status) {
+        status.textContent = messages.success;
+        status.className = "min-h-6 text-sm text-success";
+      }
+      form.reset();
+    } catch (error) {
+      button.innerHTML = original;
+      if (status) {
+        status.textContent = error instanceof Error ? error.message : messages.error;
+        status.className = "min-h-6 text-sm text-error";
+      }
+    } finally {
+      setTimeout(() => {
+        button.disabled = false;
+        button.innerHTML = original;
+        window.turnstile?.reset();
+      }, 2000);
+    }
+  });
 </script>

@@ -1,0 +1,9 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProjectsIsland from "../ProjectsIsland.astro";
+import { type Lang } from "../../i18n/ui";
+import { useTranslations } from "../../i18n/utils";
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+<Layout lang={lang} title={`${t("projects.title")} | Amine Triki`} description={t("meta.projects")}><div class="container mx-auto py-10"><main aria-labelledby="projects-page-title"><h1 id="projects-page-title" class="sr-only">{t("projects.title")}</h1><ProjectsIsland lang={lang} /></main></div></Layout>

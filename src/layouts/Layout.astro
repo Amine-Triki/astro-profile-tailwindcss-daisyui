@@ -3,10 +3,14 @@ import "../styles/global.css";
 
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import "@fontsource-variable/cairo";
+import { defaultLang, type Lang } from "../i18n/ui";
+import { getLangFromUrl } from "../i18n/utils";
 
 const {
   title = "Amine Triki",
-  description = " I’m a Full Stack Developer and creative content creator. I turn ideas into websites that are fast, modern, and very easy to use — helping businesses grow online. Whether you need a custom web application or a WordPress site, I focus on clean design and ensure everything works perfectly on phones, tablets, and computers (Responsive Design). Beyond coding",
+  description = "",
+  lang = getLangFromUrl(Astro.url) as Lang,
 } = Astro.props;
 const {
   canonical = new URL(Astro.url.pathname, "https://amine-triki.tn").href,
@@ -17,7 +21,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang || defaultLang} dir={lang === "ar" ? "rtl" : "ltr"}>
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -44,6 +48,14 @@ const {
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={image} />
     <meta property="og:site_name" content="Amine Triki" />
+    <meta property="og:locale" content={lang === "fr" ? "fr_FR" : lang === "ar" ? "ar_TN" : "en_US"} />
+    {(["en", "fr", "ar"] as const).filter((locale) => locale !== lang).map((locale) => (
+      <meta property="og:locale:alternate" content={locale === "fr" ? "fr_FR" : locale === "ar" ? "ar_TN" : "en_US"} />
+    ))}
+    {(["en", "fr", "ar"] as const).map((locale) => (
+      <link rel="alternate" hreflang={locale} href={new URL(locale === "en" ? Astro.url.pathname.replace(/^\/(fr|ar)/, "") : `/${locale}${Astro.url.pathname.replace(/^\/(fr|ar)/, "")}`, "https://amine-triki.tn").href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname.replace(/^\/(fr|ar)/, ""), "https://amine-triki.tn").href} />
     {structuredData && <script type="application/ld+json" set:html={structuredData} />}
     <title>{title}</title>
   </head>

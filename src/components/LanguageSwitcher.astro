@@ -1,0 +1,11 @@
+---
+import { languages, type Lang } from "../i18n/ui";
+import { getLangFromUrl } from "../i18n/utils";
+const lang = (Astro.props.lang ?? getLangFromUrl(Astro.url)) as Lang;
+const path = Astro.url.pathname.replace(/^\/(fr|ar)/, "") || "/";
+---
+<nav aria-label="Choose language" class="flex gap-1">
+  {(Object.keys(languages) as Lang[]).map((locale) => (
+    <a href={locale === "en" ? path : `/${locale}${path}`} class={`btn btn-ghost btn-xs ${locale === lang ? "btn-active" : ""}`} aria-current={locale === lang ? "true" : undefined}>{locale.toUpperCase()}</a>
+  ))}
+</nav>

@@ -2,3 +2,11 @@
 @plugin "daisyui" {
 	exclude: properties, radialprogress;
 }
+
+@theme {
+	--font-arabic: "Cairo Variable", "Cairo", Tahoma, Arial, sans-serif;
+}
+
+html[lang="ar"] {
+	font-family: var(--font-arabic);
+}

@@ -1,5 +1,9 @@
 ---
 import Heading from "../components/Heading.astro";
+import { type Lang } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
+const { lang = "en" } = Astro.props as { lang?: Lang };
+const t = useTranslations(lang);
 
 interface ProjectVariant {
   stack: string;
@@ -9,8 +13,8 @@ interface ProjectVariant {
 
 interface Project {
   category: "Website" | "Web App" | "Tool" | "Mobile App";
-  title: string;
-  description: string;
+  title: string | Record<string, string>;
+  description: string | Record<string, string>;
   technologies?: string[];
   featured: boolean;
   link?: string;
@@ -42,8 +46,8 @@ function validateProject(project: unknown, index: number): Project {
 
   const candidate = project as Partial<Project>;
   if (
-    typeof candidate.title !== "string" ||
-    typeof candidate.description !== "string" ||
+    !((typeof candidate.title === "string" && candidate.title.length > 0) || (candidate.title && typeof candidate.title === "object")) ||
+    !((typeof candidate.description === "string" && candidate.description.length > 0) || (candidate.description && typeof candidate.description === "object")) ||
     typeof candidate.imageSrc !== "string" ||
     !allowedCategories.has(candidate.category as Project["category"]) ||
     typeof candidate.featured !== "boolean" ||
@@ -97,25 +101,28 @@ try {
 const featuredProjects = projects.filter((project) => project.featured);
 const otherProjects = projects.filter((project) => !project.featured);
 const categories = ["all", ...new Set(otherProjects.map((project) => project.category))];
+function localized(value: string | Record<string, string>) {
+  return typeof value === "string" ? value : value[lang] ?? value.en ?? Object.values(value)[0] ?? "";
+}
 ---
 
 <div class="py-10 container mx-auto">
-  <Heading title="My Projects" subTitle="What I build" />
+  <Heading title={t("projects.title")} subTitle={t("projects.subtitle")} />
 
   <section aria-labelledby="featured-projects-title" class="mb-12">
-    <h2 id="featured-projects-title" class="mb-6 text-2xl font-bold text-primary">Featured Projects</h2>
+    <h2 id="featured-projects-title" class="mb-6 text-2xl font-bold text-primary">{t("projects.featured")}</h2>
     <div class="grid gap-6 justify-center grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
       {featuredProjects.map((project) => (
         <article class="card bg-base-100 shadow-lg">
           <figure>
-            <img src={project.imageSrc} alt={`${project.title} project`} class="h-56 w-full object-cover" loading="lazy" width="800" height="450" />
+            <img src={project.imageSrc} alt={`${localized(project.title)} ${t("projects.projectAlt")}`} class="h-56 w-full object-cover" loading="lazy" width="800" height="450" />
           </figure>
           <div class="card-body">
             <div class="flex items-start justify-between gap-3">
-              <h3 class="card-title text-primary">{project.title}</h3>
+              <h3 class="card-title text-primary">{localized(project.title)}</h3>
               <span class="badge badge-outline shrink-0">{project.category}</span>
             </div>
-            <p class="leading-relaxed">{project.description}</p>
+            <p class="leading-relaxed">{localized(project.description)}</p>
             <div class="flex flex-wrap gap-2">
               {project.technologies?.map((technology) => <span class="badge badge-ghost badge-sm">{technology}</span>)}
             </div>
@@ -129,10 +136,10 @@ const categories = ["all", ...new Set(otherProjects.map((project) => project.cat
                 </div>
               )) : (
                 <>
-                  {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info text-white">Live Preview</a>}
-                  {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-error text-black">GitHub</a>}
+                  {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info text-white">{t("projects.live")}</a>}
+                  {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-error text-black">{t("projects.github")}</a>}
                   {project.screenshots?.length && (
-                    <button type="button" data-screenshot-project={projects.indexOf(project)} data-project-title={project.title} data-screenshots={JSON.stringify(project.screenshots)} class="screenshot-btn btn btn-sm btn-outline">View Screenshots</button>
+                    <button type="button" data-screenshot-project={projects.indexOf(project)} data-project-title={localized(project.title)} data-screenshots={JSON.stringify(project.screenshots)} class="screenshot-btn btn btn-sm btn-outline">{t("projects.screenshots")}</button>
                   )}
                 </>
               )}
@@ -144,11 +151,11 @@ const categories = ["all", ...new Set(otherProjects.map((project) => project.cat
   </section>
 
   <section aria-labelledby="all-projects-title">
-    <h2 id="all-projects-title" class="mb-6 text-2xl font-bold text-primary">Other Projects</h2>
-    <div id="category-tabs" class="flex flex-wrap justify-center mb-8 gap-2" role="group" aria-label="Filter projects by category">
+    <h2 id="all-projects-title" class="mb-6 text-2xl font-bold text-primary">{t("projects.other")}</h2>
+    <div id="category-tabs" class="flex flex-wrap justify-center mb-8 gap-2" role="group" aria-label={t("projects.filter")}>
       {categories.map((category, index) => (
         <button type="button" class:list={["tab-btn btn btn-sm btn-outline", { "btn-primary": index === 0 }]} data-category={category}>
-          {category === "all" ? "All works" : category}
+          {category === "all" ? t("projects.all") : category}
         </button>
       ))}
     </div>
@@ -157,14 +164,14 @@ const categories = ["all", ...new Set(otherProjects.map((project) => project.cat
       {otherProjects.map((project) => (
         <article class="card bg-base-100 shadow-lg" data-project-category={project.category}>
           <figure>
-            <img src={project.imageSrc} alt={`${project.title} project`} class="h-40 w-full object-cover" loading="lazy" width="800" height="450" />
+            <img src={project.imageSrc} alt={`${localized(project.title)} ${t("projects.projectAlt")}`} class="h-40 w-full object-cover" loading="lazy" width="800" height="450" />
           </figure>
           <div class="card-body">
             <div class="flex items-start justify-between gap-3">
-              <h3 class="card-title text-primary">{project.title}</h3>
+              <h3 class="card-title text-primary">{localized(project.title)}</h3>
               <span class="badge badge-outline shrink-0">{project.category}</span>
             </div>
-            <p>{project.description}</p>
+            <p>{localized(project.description)}</p>
             <div class="flex flex-wrap gap-2">
               {project.technologies?.map((technology) => <span class="badge badge-ghost badge-sm">{technology}</span>)}
             </div>
@@ -178,10 +185,10 @@ const categories = ["all", ...new Set(otherProjects.map((project) => project.cat
                 </div>
               )) : (
                 <>
-                  {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info text-white">Live Preview</a>}
-                  {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-error text-black">GitHub</a>}
+                  {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info text-white">{t("projects.live")}</a>}
+                  {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-error text-black">{t("projects.github")}</a>}
                   {project.screenshots?.length && (
-                    <button type="button" data-screenshot-project={projects.indexOf(project)} data-project-title={project.title} data-screenshots={JSON.stringify(project.screenshots)} class="screenshot-btn btn btn-sm btn-outline">View Screenshots</button>
+                    <button type="button" data-screenshot-project={projects.indexOf(project)} data-project-title={localized(project.title)} data-screenshots={JSON.stringify(project.screenshots)} class="screenshot-btn btn btn-sm btn-outline">{t("projects.screenshots")}</button>
                   )}
                 </>
               )}

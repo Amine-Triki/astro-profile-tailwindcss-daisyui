@@ -2,6 +2,7 @@
 @plugin "daisyui" {
 	exclude: properties, radialprogress;
 }
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
 	--font-arabic: "Cairo Variable", "Cairo", Tahoma, Arial, sans-serif;

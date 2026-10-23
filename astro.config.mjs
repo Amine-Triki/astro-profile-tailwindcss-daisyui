@@ -18,6 +18,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      filter: (page) => !page.includes("/offline"),
       i18n: {
         defaultLocale: "en",
         locales: { en: "en-US", fr: "fr-FR", ar: "ar-TN" },

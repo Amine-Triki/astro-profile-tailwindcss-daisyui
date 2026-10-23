@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { type Lang } from "../i18n/ui";
+import { getLangFromUrl, localizedUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+---
+
+<Layout lang={lang} title={`404 | ${t("error.title")}`} description={t("error.message")}>
+  <main class="flex min-h-[calc(100vh-10rem)] items-center justify-center px-4 py-16">
+    <section class="max-w-xl text-center" aria-labelledby="error-title">
+      <p class="text-8xl font-black text-primary">404</p>
+      <h1 id="error-title" class="mt-6 text-3xl font-bold text-base-content md:text-4xl">{t("error.title")}</h1>
+      <p class="mt-4 text-lg text-base-content/70">{t("error.message")}</p>
+      <a href={localizedUrl(lang, "/")} class="btn btn-primary mt-8">{t("error.home")}</a>
+    </section>
+  </main>
+</Layout>

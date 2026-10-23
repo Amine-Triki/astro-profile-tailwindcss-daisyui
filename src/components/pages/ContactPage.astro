@@ -1,10 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Icons from "../Icons.astro";
-import { type Lang } from "../../i18n/ui";
+import { displayNames, type Lang } from "../../i18n/ui";
 import { useTranslations } from "../../i18n/utils";
 const { lang } = Astro.props as { lang: Lang }; const t = useTranslations(lang);
-const displayName = lang === "ar" ? "أمين التريكي" : "Amine Triki";
+const displayName = displayNames[lang];
 const messages = { security: t("contact.security"), sending: t("contact.sending"), sent: t("contact.sent"), success: t("contact.success"), error: t("contact.error") };
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAFdqCEhSdAJ4px3t";
 ---

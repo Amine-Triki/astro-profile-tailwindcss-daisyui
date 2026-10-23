@@ -1,13 +1,15 @@
 ---
+import { displayNames } from "../i18n/ui";
 import { getLangFromUrl, localizedUrl, useTranslations } from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const displayName = displayNames[lang];
 const socialLinks = [
   ["YouTube", "https://www.youtube.com/@aminetrikitv"], ["Facebook", "https://www.facebook.com/amine.triki.1998"], ["GitHub", "https://github.com/Amine-Triki"], ["LinkedIn", "https://www.linkedin.com/in/amine-triki-tn/"],
 ];
 ---
 <footer class="footer sm:footer-horizontal bg-base-200 text-base-content items-center p-4 mt-12 border-t border-base-300" role="contentinfo">
-  <aside><p>Copyright © {new Date().getFullYear()} - {t("footer.rights")} | <a href={localizedUrl(lang, "/")} class="link link-hover" title={t("footer.home")}>Amine Triki</a></p></aside>
+  <aside><p>Copyright © {new Date().getFullYear()} - {t("footer.rights")} | <a href={localizedUrl(lang, "/")} class="link link-hover" title={t("footer.home")}>{displayName}</a></p></aside>
   <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end" aria-label={t("footer.social")}>
     {socialLinks.map(([name, href]) => <a href={href} title={name} aria-label={name} rel="noopener noreferrer" target="_blank" class="link link-hover">{name}</a>)}
   </nav>

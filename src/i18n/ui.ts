@@ -2,6 +2,12 @@ export const languages = { en: "English", fr: "Français", ar: "العربية" 
 export const defaultLang = "en" as const;
 export type Lang = keyof typeof languages;
 
+export const displayNames = {
+  en: "Amine Triki",
+  fr: "Amine Triki",
+  ar: "أمين التريكي",
+} as const;
+
 export const roles = {
   en: ["Youtuber", "Blogger", "Freelancer", "Developer"],
   fr: ["YouTubeur", "Blogueur", "Freelance", "Développeur"],

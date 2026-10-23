@@ -1,9 +1,10 @@
 ---
-import { languages, type Lang } from "../i18n/ui";
+import { displayNames, languages, type Lang } from "../i18n/ui";
 import { getLangFromUrl, localizedUrl, useTranslations } from "../i18n/utils";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const displayName = displayNames[lang];
 const links = [["/", "nav.home"], ["/projects", "nav.projects"], ["/services", "nav.services"], ["/blog", "nav.blog"], ["/contact", "nav.contact"]] as const;
 const currentPath = Astro.url.pathname;
 const isCurrent = (path: string) => currentPath === localizedUrl(lang, path);
@@ -19,7 +20,7 @@ const isCurrent = (path: string) => currentPath === localizedUrl(lang, path);
         <li><LanguageSwitcher lang={lang} /></li>
       </ul>
     </div>
-    <a href={localizedUrl(lang, "/")} class="btn btn-ghost normal-case text-xl gap-2" aria-label={t("nav.logo")}><img src="/favicon.svg" alt="" class="w-8 h-8" /><span>Amine Triki</span></a>
+    <a href={localizedUrl(lang, "/")} class="btn btn-ghost normal-case text-xl gap-2" aria-label={t("nav.logo")}><img src="/favicon.svg" alt="" class="w-8 h-8" /><span>{displayName}</span></a>
   </div>
   <div class="navbar-center hidden lg:flex"><ul class="menu menu-horizontal px-1 gap-2" aria-label={t("nav.main")}>
     {links.map(([path, key]) => <li><a href={localizedUrl(lang, path)} class={`btn btn-ghost ${isCurrent(path) ? "btn-active" : ""}`} aria-current={isCurrent(path) ? "page" : undefined}>{t(key)}</a></li>)}

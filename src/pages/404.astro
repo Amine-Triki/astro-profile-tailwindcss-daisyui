@@ -7,7 +7,13 @@ const lang = getLangFromUrl(Astro.url) as Lang;
 const t = useTranslations(lang);
 ---
 
-<Layout lang={lang} title={`404 | ${t("error.title")}`} description={t("error.message")}>
+<Layout
+  lang={lang}
+  localized={false}
+  robots="noindex, nofollow"
+  title={`404 | ${t("error.title")}`}
+  description={t("error.message")}
+>
   <main class="flex min-h-[calc(100vh-10rem)] items-center justify-center px-4 py-16">
     <section class="max-w-xl text-center" aria-labelledby="error-title">
       <p class="text-8xl font-black text-primary">404</p>

@@ -11,6 +11,7 @@ const {
   title = "Amine Triki",
   description = "",
   robots = "index, follow",
+  localized = true,
   lang = getLangFromUrl(Astro.url) as Lang,
 } = Astro.props;
 const {
@@ -54,15 +55,15 @@ const {
     {(["en", "fr", "ar"] as const).filter((locale) => locale !== lang).map((locale) => (
       <meta property="og:locale:alternate" content={locale === "fr" ? "fr_FR" : locale === "ar" ? "ar_TN" : "en_US"} />
     ))}
-    {(["en", "fr", "ar"] as const).map((locale) => (
+    {localized && (["en", "fr", "ar"] as const).map((locale) => (
       <link rel="alternate" hreflang={locale} href={new URL(locale === "en" ? Astro.url.pathname.replace(/^\/(fr|ar)/, "") : `/${locale}${Astro.url.pathname.replace(/^\/(fr|ar)/, "")}`, "https://amine-triki.tn").href} />
     ))}
-    <link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname.replace(/^\/(fr|ar)/, ""), "https://amine-triki.tn").href} />
+    {localized && <link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname.replace(/^\/(fr|ar)/, ""), "https://amine-triki.tn").href} />}
     {structuredData && <script type="application/ld+json" set:html={structuredData} />}
     <title>{title}</title>
   </head>
   <body>
-    <Navbar />
+    <Navbar showLanguageSwitcher={localized} />
     <div class="grow min-h-screen">
       <slot />
     </div>

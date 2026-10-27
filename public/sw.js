@@ -27,9 +27,18 @@ self.addEventListener('activate', event => {
 
 
 self.addEventListener('fetch', event => {
+  const requestUrl = new URL(event.request.url);
+
+  if (requestUrl.origin !== self.location.origin) {
+    return;
+  }
+
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match('/offline.html'))
+      fetch(event.request).catch(async () => {
+        const offlineResponse = await caches.match('/offline.html');
+        return offlineResponse || Response.error();
+      })
     );
     return;
   }
@@ -37,5 +46,6 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => response || fetch(event.request))
+      .catch(() => Response.error())
   );
 });

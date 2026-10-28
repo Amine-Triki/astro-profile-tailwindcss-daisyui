@@ -8,7 +8,7 @@ const { lang, slug } = Astro.props as { lang: Lang; slug: string };
 const t = useTranslations(lang);
 const post = data.find((item) => item.slug === slug);
 if (!post) throw new Error(`Blog post not found: ${slug}`);
-const videoId = post.youtubeId || undefined;
+const videoId = post.youtubeId || post.videoUrl.match(/[?&]v=([^&]+)/)?.[1];
 const isUsableCover = /\.(jpe?g|png)$/i.test(post.img);
 const postImage = isUsableCover ? post.img : "/og/default.jpg";
 const inLanguage = lang === "fr" ? "fr-FR" : lang === "ar" ? "ar-TN" : "en-US";

@@ -15,6 +15,8 @@ const data = [
     youtubeId: "",
     category: "web-development",
     lang: "en",
+    publishedAt: undefined,
+    updatedAt: undefined,
     description:
       "Learn how to convert your React Vite app into a Progressive Web App (PWA) step by step.",
   },
@@ -25,6 +27,8 @@ const data = [
     youtubeId: "",
     category: "tips-and-tutorials",
     lang: "en",
+    publishedAt: undefined,
+    updatedAt: undefined,
     description:
       "Explication de la procédure pour modifier le mot de passe et le nom du réseau Wi-Fi d'un routeur Orange Fixbox.",
   },
@@ -35,6 +39,8 @@ const data = [
     youtubeId: "",
     category: "business-tools",
     lang: "en",
+    publishedAt: undefined,
+    updatedAt: undefined,
     description: "How to create a professional email address on OVHcloud.",
   },
   {
@@ -44,6 +50,8 @@ const data = [
     youtubeId: "",
     category: "web-development",
     lang: "en",
+    publishedAt: undefined,
+    updatedAt: undefined,
     description: "Solving the connection loss problem in WordPress.",
     content: `
       <p>The solution </p>
@@ -62,6 +70,8 @@ const data = [
     youtubeId: "",
     category: "tips-and-tutorials",
     lang: "fr",
+    publishedAt: undefined,
+    updatedAt: undefined,
     description:
       "Les fonction logiques Algèbre de Boole  équation , symbole , tableau de vérité ",
   },

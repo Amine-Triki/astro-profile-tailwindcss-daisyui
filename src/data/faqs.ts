@@ -1,4 +1,5 @@
 import type { Lang } from "../i18n/ui";
+import { keyFacts, process } from "./site-facts";
 
 export interface FaqItem {
   question: string;
@@ -10,10 +11,10 @@ export const faqs: Record<Lang, FaqItem[]> = {
     { question: "How much does a website cost in Tunisia?", answer: "A landing page starts at 500 TND and a business website starts at 900 TND. E-commerce websites start at 2,500 TND and web applications at 5,000 TND; the final quote depends on features, content and deadlines." },
     { question: "How long does it take to build a website?", answer: "A landing page usually takes 3–7 days, while a business website usually takes 2–3 weeks. E-commerce websites and applications receive a delivery estimate in the written quote because their scope varies." },
     { question: "Are domain and hosting included in the price?", answer: "No. The domain, hosting and any app-store fees are paid by you in your own accounts. I can recommend an option, deploy the project and configure everything for you." },
-    { question: "Who owns the code and accounts?", answer: "Your domain, hosting and store accounts stay in your name, and the code belongs to you after the final payment. I hand over and deploy the project as part of delivery." },
-    { question: "How many revisions are included?", answer: "Two rounds of revisions are included. Anything added after the quote is agreed is priced separately so the scope and price stay clear." },
+    { question: "Who owns the code and accounts?", answer: `${keyFacts.clientAccounts} ${keyFacts.codeOwnership} I hand over and deploy the project as part of delivery.` },
+    { question: "How many revisions are included?", answer: `${process.revisionRounds} rounds of revisions are included. Anything added after the quote is agreed is priced separately so the scope and price stay clear.` },
     { question: "Do you build iOS apps?", answer: "I currently build Android mobile applications with Flutter. iOS is priced separately, and a PWA can be a lower-cost alternative when it fits the project." },
-    { question: "Is maintenance after delivery included?", answer: "No, maintenance after delivery is priced separately. The quote can define the support or maintenance work you need after launch." },
+    { question: "Is maintenance after delivery included?", answer: `No, ${keyFacts.maintenance.toLowerCase()} The quote can define the support or maintenance work you need after launch.` },
   ],
   fr: [
     { question: "Combien coûte un site web en Tunisie ?", answer: "Une landing page commence à 500 TND et un site vitrine à 900 TND. Les sites e-commerce commencent à 2 500 TND et les applications web à 5 000 TND ; le devis final dépend des fonctionnalités, du contenu et des délais." },

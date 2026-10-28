@@ -3,22 +3,11 @@ import Layout from "../../layouts/Layout.astro";
 import { type Lang } from "../../i18n/ui";
 import { localizedUrl, useTranslations } from "../../i18n/utils";
 import { faqs } from "../../data/faqs";
+import { pricing, process } from "../../data/site-facts";
 const { lang } = Astro.props as { lang: Lang }; const t = useTranslations(lang);
 const faqItems = faqs[lang];
 const faqStructuredData = JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqItems.map(({ question, answer }) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } })) });
 const services = [["services.web.title","services.web.description"],["services.landing.title","services.landing.description"],["services.shop.title","services.shop.description"],["services.app.title","services.app.description"],["services.mobile.title","services.mobile.description"],["services.custom.title","services.custom.description"]] as const;
-const process = { revisionRounds: 2 };
-const pricing = {
-  lastUpdated: "2026",
-  items: [
-    { key: "landing", from: 500 },
-    { key: "business", from: 900 },
-    { key: "ecommerce", from: 2500 },
-    { key: "webapp", from: 5000 },
-    { key: "mobile", from: 800 },
-    { key: "custom", from: null },
-  ],
-} as const;
 const pricingLabelKeys = {
   landing: "pricing.landing",
   business: "pricing.business",

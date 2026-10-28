@@ -1,6 +1,8 @@
 function createSlug(title) {
   return title
     .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^\w\s-]/g, "")
     .replace(/\s+/g, "-")
     .replace(/--+/g, "-")
@@ -64,7 +66,7 @@ const data = [
     `,
   },
   {
-    title: "Les fonction logiques : Algèbre de Boole",
+    title: "Les fonctions logiques : Algèbre de Boole",
     img: "/images/Les-fonction-logiques.webp",
     videoUrl: "https://www.youtube.com/watch?v=ar2vuZ-TrCk",
     youtubeId: "",
@@ -79,7 +81,7 @@ const data = [
 
 const dataWithSlugs = data.map((item) => ({
   ...item,
-  slug: createSlug(item.title),
+  slug: item.slug ?? createSlug(item.title),
 }));
 
 export default dataWithSlugs;

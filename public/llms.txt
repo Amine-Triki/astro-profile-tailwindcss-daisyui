@@ -1,0 +1,41 @@
+# Amine Triki
+
+> Tunisian full-stack developer building websites, landing pages, e-commerce stores, web apps and Android apps (React, Next.js, Flutter), working in English, French and Arabic.
+
+## Key facts
+
+- Starting price: landing page — 500 TND
+- Starting price: business website — 900 TND
+- Starting price: e-commerce website — 2,500 TND
+- Starting price: web application — 5,000 TND
+- Starting price: simple Android app — 800 TND
+- The client owns the domain, hosting and app-store accounts.
+- The code belongs to the client after final payment.
+- Two revision rounds are included.
+- Maintenance after delivery is priced separately.
+
+## Main pages
+
+- [Services](https://amine-triki.tn/services/)
+- [Projects](https://amine-triki.tn/projects/)
+- [Resume](https://amine-triki.tn/resume/)
+- [Contact](https://amine-triki.tn/contact/)
+
+## Articles
+
+- [Converting Your React Vite App into PWA](https://amine-triki.tn/blog/converting-your-react-vite-app-into-pwa/)
+- [Orange Fixbox: change password and Wi-Fi name](https://amine-triki.tn/blog/orange-fixbox-change-password-wi-fi-name/)
+- [Create an OVHcloud professional email](https://amine-triki.tn/blog/create-ovhcloud-professional-email/)
+- [Connection lost: saving has been disabled until you're reconnected](https://amine-triki.tn/blog/connection-lost-saving-has-been-disabled-until-youre-reconnected/)
+- [Les fonction logiques : Algèbre de Boole](https://amine-triki.tn/blog/les-fonction-logiques-algbre-de-boole/)
+
+## Profiles
+
+- [GitHub](https://github.com/Amine-Triki)
+- [YouTube](https://www.youtube.com/@aminetrikitv)
+- [LinkedIn](https://www.linkedin.com/in/amine-triki-tn/)
+
+## Optional
+
+- [Services in French](https://amine-triki.tn/fr/services/)
+- [Services in Arabic](https://amine-triki.tn/ar/services/)

@@ -12,6 +12,9 @@ const data = [
     title: "Converting Your React Vite App into PWA",
     img: "/images/Converting Your React Vite App into PWA.webp",
     videoUrl: "https://www.youtube.com/watch?v=HExHPdX4Rb0",
+    youtubeId: "",
+    category: "web-development",
+    lang: "en",
     description:
       "Learn how to convert your React Vite app into a Progressive Web App (PWA) step by step.",
   },
@@ -19,6 +22,9 @@ const data = [
     title: "orange fixbox change password & Wi-Fi name",
     img: "/images/orange fixbox change password & Wi-Fi name.webp",
     videoUrl: "https://www.youtube.com/watch?v=Vh_S2Cwps7U",
+    youtubeId: "",
+    category: "tips-and-tutorials",
+    lang: "en",
     description:
       "Explication de la procédure pour modifier le mot de passe et le nom du réseau Wi-Fi d'un routeur Orange Fixbox.",
   },
@@ -26,12 +32,18 @@ const data = [
     title: "create ovhcloud professional email",
     img: "/images/create ovhcloud professional email.webp",
     videoUrl: "https://www.youtube.com/watch?v=GY11bxP0coA",
+    youtubeId: "",
+    category: "business-tools",
+    lang: "en",
     description: "How to create a professional email address on OVHcloud.",
   },
   {
     title: "connection lost. Saving has been disabled until you're reconnected",
     img: "/images/connection.webp",
     videoUrl: "https://www.youtube.com/watch?v=ukiiC6y-D8Q",
+    youtubeId: "",
+    category: "web-development",
+    lang: "en",
     description: "Solving the connection loss problem in WordPress.",
     content: `
       <p>The solution </p>
@@ -47,6 +59,9 @@ const data = [
     title: "Les fonction logiques : Algèbre de Boole",
     img: "/images/Les-fonction-logiques.webp",
     videoUrl: "https://www.youtube.com/watch?v=ar2vuZ-TrCk",
+    youtubeId: "",
+    category: "tips-and-tutorials",
+    lang: "fr",
     description:
       "Les fonction logiques Algèbre de Boole  équation , symbole , tableau de vérité ",
   },

@@ -2,7 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import Card from "../card.astro";
 import { type Lang } from "../../i18n/ui";
-import { useTranslations } from "../../i18n/utils";
-const { lang } = Astro.props as { lang: Lang }; const t = useTranslations(lang);
+import { localizedUrl, useTranslations } from "../../i18n/utils";
+import { blogCategories, blogSortOrder, categoryCopy, categoryLabels, type BlogCategory } from "../../data/blog";
+import data from "../../data";
+const { lang, category } = Astro.props as { lang: Lang; category?: BlogCategory };
+const t = useTranslations(lang);
+const copy = categoryCopy[lang];
+const posts = [...data].filter((post) => !category || post.category === category).sort((a, b) => blogSortOrder[a.category as BlogCategory] - blogSortOrder[b.category as BlogCategory]);
+const pageTitle = category ? `${categoryLabels[lang][category]} | ${copy.title} | Amine Triki` : t("blog.metaTitle");
+const pageDescription = category ? `${categoryLabels[lang][category]} — ${copy.description}` : t("blog.metaDescription");
 ---
-<Layout lang={lang} title={t("blog.metaTitle")} description={t("blog.metaDescription")}><div class="container mx-auto py-10"><h1 class="sr-only">{t("nav.blog")}</h1>{lang !== "en" && <p class="mb-6 rounded-box bg-base-200 p-4 text-sm">{t("blog.fallback")}</p>}<Card lang={lang} /></div></Layout>
+<Layout lang={lang} title={pageTitle} description={pageDescription}><main class="container mx-auto px-4 py-10"><h1 class="text-4xl font-bold">{category ? categoryLabels[lang][category] : copy.title}</h1>{lang !== "en" && !category && <p class="mt-4 rounded-box bg-base-200 p-4 text-sm">{t("blog.fallback")}</p>}<nav class="mt-8 flex flex-wrap gap-3" aria-label={copy.filter}><a href={localizedUrl(lang, "blog")} class={`btn btn-sm ${!category ? "btn-primary" : "btn-outline"}`}>{copy.all}</a>{blogCategories.map((item) => <a href={localizedUrl(lang, `blog/category/${item}`)} class={`btn btn-sm ${category === item ? "btn-primary" : "btn-outline"}`}>{categoryLabels[lang][item]}</a>)}</nav><div class="mt-10"><Card lang={lang} posts={posts} /></div></main></Layout>

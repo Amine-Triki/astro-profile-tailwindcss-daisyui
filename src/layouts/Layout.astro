@@ -16,10 +16,14 @@ const {
 } = Astro.props;
 const {
   canonical = new URL(Astro.url.pathname, "https://amine-triki.tn").href,
-  image = new URL("/icon-512x512.png", "https://amine-triki.tn").href,
+  image = "/og/default.jpg",
+  imageAlt = "Amine Triki - Full-Stack Developer - Tunisia",
   type = "website",
   structuredData,
 } = Astro.props;
+const siteUrl = Astro.site ?? new URL("https://amine-triki.tn");
+const absoluteImage = new URL(image, siteUrl).href;
+const absoluteCanonical = new URL(canonical, siteUrl).href;
 ---
 
 <!doctype html>
@@ -48,10 +52,15 @@ const {
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={image} />
+    <meta property="og:url" content={absoluteCanonical} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:site_name" content="Amine Triki" />
     <meta property="og:locale" content={lang === "fr" ? "fr_FR" : lang === "ar" ? "ar_TN" : "en_US"} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={absoluteImage} />
     {(["en", "fr", "ar"] as const).filter((locale) => locale !== lang).map((locale) => (
       <meta property="og:locale:alternate" content={locale === "fr" ? "fr_FR" : locale === "ar" ? "ar_TN" : "en_US"} />
     ))}

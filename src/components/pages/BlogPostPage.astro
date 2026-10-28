@@ -3,10 +3,25 @@ import Layout from "../../layouts/Layout.astro";
 import data from "../../data";
 import { type Lang } from "../../i18n/ui";
 import { localizedUrl, useTranslations } from "../../i18n/utils";
+import { categoryLabels, categoryCopy } from "../../data/blog";
 const { lang, slug } = Astro.props as { lang: Lang; slug: string };
 const t = useTranslations(lang);
 const post = data.find((item) => item.slug === slug);
 if (!post) throw new Error(`Blog post not found: ${slug}`);
-const videoId = post.videoUrl.match(/[?&]v=([^&]+)/)?.[1];
+const videoId = post.youtubeId || undefined;
+const isUsableCover = /\.(jpe?g|png)$/i.test(post.img);
+const postImage = isUsableCover ? post.img : "/og/default.jpg";
+const inLanguage = lang === "fr" ? "fr-FR" : lang === "ar" ? "ar-TN" : "en-US";
+const structuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.title,
+  ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
+  ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
+  author: { "@type": "Person", name: "Amine Triki", sameAs: ["https://github.com/Amine-Triki", "https://www.youtube.com/@aminetrikitv", "https://www.linkedin.com/in/amine-triki-tn/"] },
+  image: new URL(postImage, Astro.site ?? "https://amine-triki.tn").href,
+  inLanguage,
+  ...(videoId ? { video: { "@type": "VideoObject", name: post.title, description: post.description, thumbnailUrl: new URL(postImage, Astro.site ?? "https://amine-triki.tn").href, uploadDate: post.publishedAt, contentUrl: `https://www.youtube-nocookie.com/embed/${videoId}` } } : {}),
+});
 ---
-<Layout lang={lang} title={`${post.title} | Amine Triki`} description={post.description}><article class="container mx-auto max-w-4xl px-4 py-16"><header class="mb-8"><h1 class="mb-4 text-4xl font-bold md:text-5xl">{post.title}</h1>{post.description && <p class="text-xl text-base-content/70">{post.description}</p>}</header>{videoId && <div class="mb-8 aspect-video"><iframe class="h-full w-full rounded-lg" src={`https://www.youtube.com/embed/${videoId}`} title={post.title} allowfullscreen /></div>}<div class="prose prose-lg max-w-none" set:html={post.content ?? ""}></div><a href={localizedUrl(lang, "blog")} class="btn btn-outline mt-12">← {t("blog.back")}</a></article></Layout>
+<Layout lang={lang} title={`${post.title} | Amine Triki`} description={post.description} image={postImage} imageAlt={post.title} structuredData={structuredData}><article lang={post.lang} class="container mx-auto max-w-4xl px-4 py-16"><header class="mb-8"><h1 class="mb-4 text-4xl font-bold md:text-5xl">{post.title}</h1>{post.description && <p class="text-xl text-base-content/70">{post.description}</p>}{post.publishedAt && <p class="mt-4 text-sm text-base-content/60">{categoryCopy[lang].published}: <time datetime={post.publishedAt}>{post.publishedAt}</time></p>}{post.updatedAt && <p class="text-sm text-base-content/60">{categoryCopy[lang].updated}: <time datetime={post.updatedAt}>{post.updatedAt}</time></p>}<p class="text-sm text-base-content/60">{categoryCopy[lang].author} Amine Triki</p><p class="mt-2 text-sm text-primary">{categoryLabels[lang][post.category]}</p></header>{videoId && <><div class="mb-6 aspect-video"><iframe class="h-full w-full rounded-lg" src={`https://www.youtube-nocookie.com/embed/${videoId}`} title={post.title} loading="lazy" allowfullscreen /></div><section class="mb-8 rounded-box bg-base-200 p-6"><h2 class="text-xl font-bold">{categoryCopy[lang].videoSummary}</h2><p class="mt-2 leading-relaxed">{post.description}</p></section></>}<div class="prose prose-lg max-w-none" set:html={post.content ?? ""}></div><a href={localizedUrl(lang, "blog")} class="btn btn-outline mt-12">← {t("blog.back")}</a></article></Layout>

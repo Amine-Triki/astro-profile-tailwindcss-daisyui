@@ -1,0 +1,8 @@
+---
+import BlogPage from "../../../../components/pages/BlogPage.astro";
+import { blogCategories } from "../../../../data/blog";
+export function getStaticPaths() {
+  return blogCategories.map((category) => ({ params: { category }, props: { lang: "fr", category } }));
+}
+---
+<BlogPage {...Astro.props} />

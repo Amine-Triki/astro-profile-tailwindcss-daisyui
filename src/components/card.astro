@@ -2,13 +2,15 @@
 import data from "../data";
 import { type Lang } from "../i18n/ui";
 import { localizedUrl, useTranslations } from "../i18n/utils";
-const { lang = "en" } = Astro.props as { lang?: Lang };
+import { blogSortOrder, categoryLabels, type BlogCategory } from "../data/blog";
+const { lang = "en", posts } = Astro.props as { lang?: Lang; posts?: typeof data };
 const t = useTranslations(lang);
+const items = posts ?? [...data].sort((a, b) => blogSortOrder[a.category as BlogCategory] - blogSortOrder[b.category as BlogCategory]);
 ---
 
 <div class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
   {
-    data.map((item) => (
+    items.map((item) => (
       <div class="card bg-base-100 shadow-sm h-full">
         <figure>
           <div class="hover-3d">
@@ -29,9 +31,10 @@ const t = useTranslations(lang);
 
         <div class="card-body flex flex-col">
           <h2 class="card-title">{item.title}</h2>
+          <p class="text-sm text-primary">{categoryLabels[lang][item.category as BlogCategory]}</p>
 
           <div class="card-actions justify-end mt-auto">
-            <a href={`${localizedUrl(lang, "blog")}/${item.slug}`} class="btn btn-primary">
+            <a href={`${localizedUrl(lang, "blog")}${item.slug}/`} class="btn btn-primary">
               {t("blog.read")}
             </a>
           </div>

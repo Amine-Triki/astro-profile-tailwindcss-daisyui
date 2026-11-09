@@ -1,0 +1,225 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { Lang } from "../../i18n/ui";
+const { lang = "en" } = Astro.props as { lang?: Lang };
+const copy = {
+	en: {
+		title: "Privacy Policy | My Expenses Log", description: "Privacy Policy for My Expenses Log, developed by Amine Triki.",
+		badge: "Privacy Policy", updated: "Last updated: 21 Sep 2026", heading: "Privacy, My Expenses Log.", intro: "This Privacy Policy explains how My Expenses Log (Personal Expense Tracker), developed by Amine Triki, handles information.",
+		dataNote: "Your data stays on your device", dataNoteText: "The app does not collect, store, transmit, or share any personal or financial data with anyone, including the developer.",
+		collection: "Data collection", collectionText: "The app does not collect any data. Specifically:", account: "No account or sign-up is required or offered.", server: "No expense, budget, or shopping list data is sent to any server.", analytics: "No analytics, tracking, or advertising SDKs are used.", identifiers: "No device identifiers, location, or usage statistics are collected.",
+		storage: "Data storage", storageText: "All information you enter, including expenses, budgets, shopping lists, and settings, is stored locally on your device only using on-device storage.", offline: "The app works fully offline and does not require an internet connection to function.", delete: "You can permanently delete all app data at any time from", deleteAction: "Settings → Delete all data", deleteEnd: "Uninstalling the app also removes all locally stored data.",
+		sharing: "Data sharing with third parties", sharingText: "The app does not share any data with third parties, because no data ever leaves your device.", permissions: "Permissions", permissionsText: "The app requests only the minimum device permissions required for its core functionality, such as local storage access. It does not request access to contacts, camera, microphone, location, or any other sensitive permission unrelated to its purpose.", children: "Children's privacy", childrenText: "The app does not knowingly collect any information from anyone, including children, since it collects no information at all.", changes: "Changes to this policy", changesText: "If this policy changes in the future, for example if a new feature requires data handling, this page will be updated and the \"Last updated\" date above will reflect the change.", questions: "Questions?", contact: "Contact", contactText: "If you have any questions about this Privacy Policy, contact:", website: "Website:", email: "Email:",
+	},
+	fr: {
+		title: "Politique de confidentialité | My Expenses Log", description: "Politique de confidentialité de My Expenses Log, développé par Amine Triki.",
+		badge: "Politique de confidentialité", updated: "Dernière mise à jour : 21 sept. 2026", heading: "Confidentialité, My Expenses Log.", intro: "Cette politique explique comment My Expenses Log (Personal Expense Tracker), développé par Amine Triki, traite les informations.",
+		dataNote: "Vos données restent sur votre appareil", dataNoteText: "L’application ne collecte, ne stocke, ne transmet et ne partage aucune donnée personnelle ou financière, y compris avec le développeur.",
+		collection: "Collecte des données", collectionText: "L’application ne collecte aucune donnée. Notamment :", account: "Aucun compte ni inscription n’est requis ou proposé.", server: "Aucune donnée de dépenses, de budget ou de liste de courses n’est envoyée à un serveur.", analytics: "Aucun outil d’analyse, de suivi ou SDK publicitaire n’est utilisé.", identifiers: "Aucun identifiant d’appareil, emplacement ou statistique d’utilisation n’est collecté.",
+		storage: "Stockage des données", storageText: "Toutes les informations saisies, y compris les dépenses, budgets, listes de courses et paramètres, sont stockées uniquement sur votre appareil.", offline: "L’application fonctionne entièrement hors ligne et ne nécessite pas de connexion Internet.", delete: "Vous pouvez supprimer définitivement toutes les données depuis", deleteAction: "Paramètres → Supprimer toutes les données", deleteEnd: "La désinstallation supprime également toutes les données locales.",
+		sharing: "Partage avec des tiers", sharingText: "L’application ne partage aucune donnée avec des tiers, car aucune donnée ne quitte votre appareil.", permissions: "Autorisations", permissionsText: "L’application demande uniquement les autorisations minimales nécessaires, comme l’accès au stockage local. Elle ne demande pas l’accès aux contacts, à l’appareil photo, au microphone, à la localisation ou à toute autre autorisation sensible inutile.", children: "Confidentialité des enfants", childrenText: "L’application ne collecte sciemment aucune information, y compris auprès des enfants, puisqu’elle ne collecte aucune information.", changes: "Modifications de cette politique", changesText: "En cas de modification future, par exemple si une nouvelle fonctionnalité nécessite un traitement des données, cette page sera mise à jour et la date ci-dessus sera modifiée.", questions: "Des questions ?", contact: "Contact", contactText: "Pour toute question concernant cette politique, contactez :", website: "Site web :", email: "E-mail :",
+	},
+	ar: {
+		title: "سياسة الخصوصية | My Expenses Log", description: "سياسة الخصوصية لتطبيق My Expenses Log، من تطوير أمين التريكي.",
+		badge: "سياسة الخصوصية", updated: "آخر تحديث: 21 سبتمبر 2026", heading: "الخصوصية، My Expenses Log.", intro: "توضح سياسة الخصوصية هذه كيفية تعامل تطبيق My Expenses Log (Personal Expense Tracker)، من تطوير أمين التريكي، مع المعلومات.",
+		dataNote: "تبقى بياناتك على جهازك", dataNoteText: "لا يجمع التطبيق أي بيانات شخصية أو مالية ولا يخزنها أو ينقلها أو يشاركها مع أي شخص، بما في ذلك المطوّر.",
+		collection: "جمع البيانات", collectionText: "لا يجمع التطبيق أي بيانات، وتحديداً:", account: "لا يتطلب التطبيق إنشاء حساب أو التسجيل ولا يقدمهما.", server: "لا تُرسل بيانات المصاريف أو الميزانية أو قائمة التسوق إلى أي خادم.", analytics: "لا تُستخدم أدوات التحليل أو التتبع أو الإعلانات.", identifiers: "لا تُجمع معرّفات الجهاز أو الموقع أو إحصاءات الاستخدام.",
+		storage: "تخزين البيانات", storageText: "تُخزّن جميع المعلومات التي تدخلها، بما فيها المصاريف والميزانيات وقوائم التسوق والإعدادات، محلياً على جهازك فقط.", offline: "يعمل التطبيق بالكامل دون اتصال ولا يحتاج إلى الإنترنت.", delete: "يمكنك حذف جميع بيانات التطبيق نهائياً في أي وقت من", deleteAction: "الإعدادات ← حذف جميع البيانات", deleteEnd: "كما يؤدي إلغاء تثبيت التطبيق إلى حذف جميع البيانات المخزنة محلياً.",
+		sharing: "مشاركة البيانات مع جهات خارجية", sharingText: "لا يشارك التطبيق أي بيانات مع جهات خارجية، لأن البيانات لا تغادر جهازك.", permissions: "الأذونات", permissionsText: "يطلب التطبيق الحد الأدنى من أذونات الجهاز اللازمة لوظائفه الأساسية، مثل الوصول إلى التخزين المحلي. ولا يطلب الوصول إلى جهات الاتصال أو الكاميرا أو الميكروفون أو الموقع أو أي إذن حساس لا يرتبط بوظيفته.", children: "خصوصية الأطفال", childrenText: "لا يجمع التطبيق أي معلومات عن أي شخص، بما في ذلك الأطفال، لأنه لا يجمع أي معلومات على الإطلاق.", changes: "التغييرات على هذه السياسة", changesText: "إذا تغيرت هذه السياسة مستقبلاً، مثلاً إذا تطلبت ميزة جديدة معالجة البيانات، فسيتم تحديث هذه الصفحة وتاريخ آخر تحديث أعلاه.", questions: "هل لديك أسئلة؟", contact: "اتصل بنا", contactText: "إذا كانت لديك أسئلة حول سياسة الخصوصية هذه، فتواصل مع:", website: "الموقع:", email: "البريد الإلكتروني:",
+	},
+}[lang];
+---
+
+<Layout
+	lang={lang}
+	title={copy.title}
+	description={copy.description}
+>
+	<main>
+		<section class="bg-base-200 px-4 py-16 md:py-24" lang={lang}>
+			<div class="container mx-auto max-w-5xl">
+				<div class="max-w-3xl">
+					<div class="mb-5 flex flex-wrap items-center gap-3">
+						<span class="badge badge-primary badge-lg">{copy.badge}</span>
+						<span class="text-sm text-base-content/60">{copy.updated}</span>
+					</div>
+					<h1 class="text-4xl font-bold leading-tight md:text-6xl">{copy.heading}</h1>
+					<p class="mt-6 text-lg leading-relaxed text-base-content/70 md:text-xl">
+						{copy.intro}
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="px-4 py-12 md:py-20">
+			<div class="container mx-auto max-w-5xl">
+				<div class="alert border border-primary/20 bg-primary/5 shadow-sm" role="note">
+					<svg class="size-7 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 3 4 6v5c0 5 3.4 8.8 8 10 4.6-1.2 8-5 8-10V6l-8-3Zm-3 9 2 2 4-4" />
+					</svg>
+					<div>
+						<h2 class="font-bold">{copy.dataNote}</h2>
+						<p class="mt-1 text-base-content/70">{copy.dataNoteText}</p>
+					</div>
+				</div>
+
+				<div class="mt-12 grid gap-6 md:grid-cols-2">
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">{copy.collection}</h2>
+							<p class="leading-relaxed text-base-content/70">{copy.collectionText}</p>
+							<ul class="mt-2 space-y-3 text-base-content/80">
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>{copy.account}</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>{copy.server}</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>{copy.analytics}</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>{copy.identifiers}</li>
+							</ul>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">{copy.storage}</h2>
+							<p class="leading-relaxed text-base-content/70">{copy.storageText}</p>
+							<p class="leading-relaxed text-base-content/70">{copy.offline}</p>
+							<div class="rounded-box bg-base-200 p-4 text-sm leading-relaxed">
+								{copy.delete} <strong>{copy.deleteAction}</strong>. {copy.deleteEnd}
+							</div>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">{copy.sharing}</h2>
+							<p class="leading-relaxed text-base-content/70">{copy.sharingText}</p>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">{copy.permissions}</h2>
+							<p class="leading-relaxed text-base-content/70">{copy.permissionsText}</p>
+						</div>
+					</article>
+				</div>
+
+				<div class="mt-6 grid gap-6 md:grid-cols-2">
+					<article class="rounded-box border border-base-300 bg-base-200 p-6 md:p-8">
+						<h2 class="text-2xl font-bold">{copy.children}</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">{copy.childrenText}</p>
+					</article>
+					<article class="rounded-box border border-base-300 bg-base-200 p-6 md:p-8">
+						<h2 class="text-2xl font-bold">{copy.changes}</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">{copy.changesText}</p>
+					</article>
+				</div>
+
+				<section class="mt-12 border-t border-base-300 pt-10" aria-labelledby="contact-heading">
+					<div class="max-w-2xl">
+						<p class="mb-3 font-semibold uppercase tracking-[0.2em] text-primary">{copy.questions}</p>
+						<h2 id="contact-heading" class="text-3xl font-bold md:text-4xl">{copy.contact}</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">{copy.contactText}</p>
+						<div class="mt-6 space-y-3">
+							<p class="font-semibold">Amine Triki</p>
+							<p><span class="font-medium">{copy.website}</span> <a class="link link-primary" href="https://amine-triki.tn" target="_blank" rel="noopener noreferrer">amine-triki.tn</a></p>
+							<p><span class="font-medium">{copy.email}</span> <a class="link link-primary" href="mailto:amine.triki@live.com">amine.triki@live.com</a></p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
+
+		<section class="border-t border-base-300 px-4 py-12 md:py-20" lang="zh-CN">
+			<div class="container mx-auto max-w-5xl">
+				<div class="max-w-3xl">
+					<div class="mb-5 flex flex-wrap items-center gap-3">
+						<span class="badge badge-primary badge-lg">隐私政策</span>
+						<span class="text-sm text-base-content/60">最后更新：2026年9月21日</span>
+					</div>
+					<h1 class="text-4xl font-bold leading-tight md:text-6xl">隐私政策：My Expenses Log</h1>
+					<p class="mt-6 text-lg leading-relaxed text-base-content/70 md:text-xl">
+						本隐私政策说明由 Amine Triki 开发的 My Expenses Log（Personal Expense Tracker）如何处理信息。
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="px-4 py-12 md:py-20" lang="zh-CN">
+			<div class="container mx-auto max-w-5xl">
+				<div class="alert border border-primary/20 bg-primary/5 shadow-sm" role="note">
+					<svg class="size-7 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 3 4 6v5c0 5 3.4 8.8 8 10 4.6-1.2 8-5 8-10V6l-8-3Zm-3 9 2 2 4-4" />
+					</svg>
+					<div>
+						<h2 class="font-bold">您的数据仅保留在您的设备上</h2>
+						<p class="mt-1 text-base-content/70">本应用不会收集、存储、传输或与任何人分享任何个人或财务数据，包括开发者。</p>
+					</div>
+				</div>
+
+				<div class="mt-12 grid gap-6 md:grid-cols-2">
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">数据收集</h2>
+							<p class="leading-relaxed text-base-content/70">本应用不会收集任何数据，具体包括：</p>
+							<ul class="mt-2 space-y-3 text-base-content/80">
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>无需创建或注册账户。</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>任何费用、预算或购物清单数据都不会发送到服务器。</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>不使用分析、跟踪或广告 SDK。</li>
+								<li class="flex gap-3"><span class="text-primary" aria-hidden="true">&#x2713;</span>不会收集设备标识符、位置或使用统计信息。</li>
+							</ul>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">数据存储</h2>
+							<p class="leading-relaxed text-base-content/70">您输入的所有信息，包括费用、预算、购物清单和设置，仅使用设备本地存储保存在您的设备上。</p>
+							<p class="leading-relaxed text-base-content/70">本应用完全支持离线使用，无需互联网连接即可运行。</p>
+							<div class="rounded-box bg-base-200 p-4 text-sm leading-relaxed">
+								您可以随时通过<strong>设置 &rarr; 删除所有数据</strong>永久删除所有应用数据。卸载应用也会删除所有本地存储的数据。
+							</div>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">与第三方共享数据</h2>
+							<p class="leading-relaxed text-base-content/70">本应用不会与第三方共享任何数据，因为任何数据都不会离开您的设备。</p>
+						</div>
+					</article>
+
+					<article class="card border border-base-300 bg-base-100 shadow-sm">
+						<div class="card-body">
+							<h2 class="card-title text-2xl">权限</h2>
+							<p class="leading-relaxed text-base-content/70">本应用仅请求核心功能所需的最少设备权限，例如本地存储访问权限。本应用不会请求访问联系人、相机、麦克风、位置或任何其他与其用途无关的敏感权限。</p>
+						</div>
+					</article>
+				</div>
+
+				<div class="mt-6 grid gap-6 md:grid-cols-2">
+					<article class="rounded-box border border-base-300 bg-base-200 p-6 md:p-8">
+						<h2 class="text-2xl font-bold">儿童隐私</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">由于本应用完全不收集信息，因此不会在明知的情况下收集包括儿童在内的任何人的信息。</p>
+					</article>
+					<article class="rounded-box border border-base-300 bg-base-200 p-6 md:p-8">
+						<h2 class="text-2xl font-bold">政策变更</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">如果未来本政策发生变化，例如新功能需要处理数据，我们会更新此页面，上方的“最后更新”日期也会同步变更。</p>
+					</article>
+				</div>
+
+				<section class="mt-12 border-t border-base-300 pt-10" aria-labelledby="contact-heading-zh">
+					<div class="max-w-2xl">
+						<p class="mb-3 font-semibold uppercase tracking-[0.2em] text-primary">有问题吗？</p>
+						<h2 id="contact-heading-zh" class="text-3xl font-bold md:text-4xl">联系方式</h2>
+						<p class="mt-4 leading-relaxed text-base-content/70">如果您对本隐私政策有任何疑问，请联系：</p>
+						<div class="mt-6 space-y-3">
+							<p class="font-semibold">Amine Triki</p>
+							<p><span class="font-medium">网站：</span> <a class="link link-primary" href="https://amine-triki.tn" target="_blank" rel="noopener noreferrer">amine-triki.tn</a></p>
+							<p><span class="font-medium">电子邮件：</span> <a class="link link-primary" href="mailto:amine.triki@live.com">amine.triki@live.com</a></p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
+	</main>
+</Layout>

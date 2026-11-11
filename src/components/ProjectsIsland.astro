@@ -106,7 +106,7 @@ function localized(value: string | Record<string, string>) {
 }
 ---
 
-<div class="py-10 container mx-auto">
+<div id="projects-island" class="py-10 container mx-auto">
   <Heading title={t("projects.title")} subTitle={t("projects.subtitle")} />
 
   <section aria-labelledby="featured-projects-title" class="mb-12">
@@ -213,6 +213,7 @@ function localized(value: string | Record<string, string>) {
 </dialog>
 
 <script>
+  const projectsIsland = document.getElementById("projects-island");
   const projectsGrid = document.getElementById("projects-grid");
   const categoryTabs = document.getElementById("category-tabs");
   const screenshotsModal = document.getElementById("screenshots-modal") as HTMLDialogElement | null;
@@ -259,7 +260,7 @@ function localized(value: string | Record<string, string>) {
     button.classList.add("btn-primary");
   });
 
-  projectsGrid?.addEventListener("click", (event) => {
+  projectsIsland?.addEventListener("click", (event) => {
     const button = (event.target as HTMLElement).closest<HTMLButtonElement>(".screenshot-btn");
     if (button) openScreenshots(button);
   });
